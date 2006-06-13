@@ -15,8 +15,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@kneschke.de</email>
   <active>yes</active>
  </lead>
- <date>2006-05-30</date>
- <time>13:39:00</time>
+ <date>2006-06-13</date>
+ <time>13:35:00</time>
  <version>
   <release>0.3.0</release>
   <api>0.3.0</api>
@@ -106,8 +106,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.3.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-29</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -121,8 +121,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-25</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -142,8 +142,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-19</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -155,8 +155,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -169,8 +169,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -187,8 +187,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -201,8 +201,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -216,8 +216,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
@@ -230,8 +230,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>0.2.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>alpha</release>
+    <api>alpha</api>
    </stability>
    <date>2006-05-14</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
