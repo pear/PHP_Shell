@@ -108,12 +108,14 @@ class PHP_Shell {
     * current version of the class 
     * @var string
     */
-    protected $version = '0.3.0';
+    protected $version = '0.3.1';
 
     /**
     *
     */
     protected $stdin;
+
+    protected $code_buffer;
 
     /**
     * init the shell and change if readline support is available
@@ -150,19 +152,19 @@ class PHP_Shell {
     */
     public function parse() {
         ## remove empty lines
-        $this->code = trim($this->code);
-        if ($this->code == '') return 1;
+        if (trim($this->code) == '') return 1;
 
         $t = token_get_all('<?php '.$this->code.' ?>');
   
         $need_semicolon = 1; /* do we need a semicolon to complete the statement ? */
         $need_return = 1;    /* can we prepend a return to the eval-string ? */
+        $open_comment = 0;   /* a open multi-line comment */
         $eval = '';          /* code to be eval()'ed later */
         $braces = array();   /* to track if we need more closing braces */
 
         $methods = array();  /* to track duplicate methods in a class declaration */
         $ts = array();       /* tokens without whitespaces */
-        
+
         foreach ($t as $ndx => $token) {
             if (is_array($token)) {
                 $ignore = 0;
@@ -196,11 +198,17 @@ class PHP_Shell {
                 case T_INCLUDE_ONCE:
                 case T_REQUIRE_ONCE:
                 case T_TRY:
+                case T_SWITCH:
+                case T_DEFAULT:
+                case T_CASE:
+                case T_BREAK:
+                case T_DOC_COMMENT:
                     $need_return = 0;
                     break;
                 case T_EMPTY:
                 case T_ISSET:
                 case T_EVAL:
+                case T_EXIT:
 
                 case T_VARIABLE:
                 case T_STRING:
@@ -212,6 +220,7 @@ class PHP_Shell {
                 case T_INSTANCEOF:
 
                 case T_CATCH:
+                case T_THROW:
 
                 case T_ELSE:
                 case T_AS:
@@ -262,6 +271,10 @@ class PHP_Shell {
                 case T_LINE:
                 case T_FILE:
 
+                case T_BOOL_CAST:
+                case T_INT_CAST:
+                case T_STRING_CAST:
+
                     /* just go on */
                     break;
                 default:
@@ -295,32 +308,44 @@ class PHP_Shell {
                         */
                     } else if ($last >= 3 &&
                         $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
+                        $ts[0]['token'] != T_ABSTRACT && /* if we are not in a class definition */
+                        $ts[1]['token'] != T_CLASS && /* if we are not in a class definition */
                         $ts[$last - 1]['token'] == T_STRING &&
                         $ts[$last - 2]['token'] == T_OBJECT_OPERATOR &&
                         $ts[$last - 3]['token'] == T_VARIABLE ) {
 
                         /* $object->method( */
 
+                        /* catch (Exception $e) does not set $e in $GLOBALS[] */
+                        $in_catch = 0;
 
-                        /* $object has to exist and has to be a object */
-                        $objname = $ts[$last - 3]['value'];
+                        foreach ($ts as $v) {
+                            if ($v['token'] == T_CATCH) {
+                                $in_catch = 1;
+                            }
+                        }
+
+                        if (!$in_catch) {
+                            /* $object has to exist and has to be a object */
+                            $objname = $ts[$last - 3]['value'];
                    
-                        if (!isset($GLOBALS[ltrim($objname, '$')])) {
-                            throw new Exception(sprintf('Variable \'%s\' is not set', $objname));
-                        }
-                        $object = $GLOBALS[ltrim($objname, '$')];
+                            if (!isset($GLOBALS[ltrim($objname, '$')])) {
+                                throw new Exception(sprintf('Variable \'%s\' is not set', $objname));
+                            }
+                            $object = $GLOBALS[ltrim($objname, '$')];
+    
+                            if (!is_object($object)) {
+                                throw new Exception(sprintf('Variable \'%s\' is not a class', $objname));
+                            }
+                            
+                            $method = $ts[$last - 1]['value'];
 
-                        if (!is_object($object)) {
-                            throw new Exception(sprintf('Variable \'%s\' is not a class', $objname));
-                        }
+                            /* obj */
                         
-                        $method = $ts[$last - 1]['value'];
-
-                        /* obj */
-                    
-                        if (!method_exists($object, $method)) {
-                            throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'", 
-                                $objname, get_class($object), $method));
+                            if (!method_exists($object, $method)) {
+                                throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'", 
+                                    $objname, get_class($object), $method));
+                            }
                         }
                     } else if ($last >= 3 &&
                         $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
@@ -508,6 +533,8 @@ class PHP_Shell {
 
                     } else if ($last >= 1 &&
                         $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
+                        $ts[0]['token'] != T_ABSTRACT && /* if we are not in a class definition */
+                        $ts[1]['token'] != T_CLASS && /* if we are not in a class definition */
                         $ts[$last - 1]['token'] == T_STRING ) {
                         /* func() */
                         $funcname = $ts[$last - 1]['value'];
@@ -597,7 +624,10 @@ class PHP_Shell {
                     array_pop($braces);
                     break;
                 case '[':
-                    if ($ts[$last - 1]['token'] == T_VARIABLE) {
+                    if ($ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
+                        $ts[0]['token'] != T_ABSTRACT && /* if we are not in a class definition */
+                        $ts[1]['token'] != T_CLASS && /* if we are not in a class definition */
+                        $ts[$last - 1]['token'] == T_VARIABLE) {
                         /* $a[] only works on array and string */
 
                         /* $object has to exist and has to be a object */
@@ -654,7 +684,7 @@ class PHP_Shell {
         }
 
 
-        $need_more = count($braces);
+        $need_more = (count($braces) > 0) || $open_comment;
 
         if ($need_more || ';' === $token) {
             $need_semicolon = 0;
@@ -685,6 +715,16 @@ class PHP_Shell {
         if (empty($this->code)) print PHP_EOL;
 
         $prompt = (empty($this->code)) ? '>> ' : '.. ';
+
+        if (count($this->code_buffer) > 0) {
+            print $prompt;
+
+            $line = array_shift($this->code_buffer);
+
+            print $line.PHP_EOL;
+
+            return $line.PHP_EOL;
+        }
 
         if ($this->have_readline) {
             $l = readline($prompt);
@@ -793,6 +833,11 @@ EOF;
                         ## quit
                         return false;
                     }
+
+                    if (is_array($l)) {
+                        $this->code_buffer = $l;
+                        $l = '';
+                    }
                     break;
                 }
             }
@@ -825,6 +870,8 @@ EOF;
     * @param string $code input buffer
     */
     public function appendCode($code) {
+        if (strlen($code)) $code .= PHP_EOL;
+
         $this->code .= $code;
     }
    

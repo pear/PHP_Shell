@@ -30,6 +30,7 @@ require_once "PHP/Shell/Extensions/Colour.php";
 require_once "PHP/Shell/Extensions/ExecutionTime.php";
 require_once "PHP/Shell/Extensions/InlineHelp.php";
 require_once "PHP/Shell/Extensions/VerbosePrint.php";
+require_once "PHP/Shell/Extensions/LoadScript.php";
     
 /**
 * default error-handler
@@ -66,6 +67,7 @@ $__shell_exts->registerExtensions(array(
     "exectime"       => new PHP_Shell_Extensions_ExecutionTime(),
     "inlinehelp"     => new PHP_Shell_Extensions_InlineHelp(),
     "verboseprint"   => new PHP_Shell_Extensions_VerbosePrint(),
+    "loadscript"     => new PHP_Shell_Extensions_LoadScript(),
 ));
 
 $f = <<<EOF
@@ -132,7 +134,8 @@ while($__shell->input()) {
         }
     } catch(Exception $__shell_exception) {
         print $__shell_exts->colour->getColour("exception");
-        print $__shell_exception->getMessage();
+        printf('%s (code: %d) got thrown'.PHP_EOL, get_class($__shell_exception), $__shell_exception->getCode());
+        print $__shell_exception;
         
         $__shell->resetCode();
 
@@ -142,7 +145,7 @@ while($__shell->input()) {
     print $__shell_exts->colour->getColour("default");
     $__shell_exts->exectime->stopTime();
     if ($__shell_exts->exectime->isShow()) {
-        printf(" (parse: %.4fms, exec: %.4fms)", 
+        printf(" (parse: %.4fs, exec: %.4fs)", 
             $__shell_exts->exectime->getParseTime(),
             $__shell_exts->exectime->getExecTime()
         );

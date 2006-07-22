@@ -15,10 +15,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@kneschke.de</email>
   <active>yes</active>
  </lead>
- <date>2006-06-13</date>
- <time>13:35:00</time>
+ <date>2006-07-22</date>
+ <time>17:43:00</time>
  <version>
-  <release>0.3.0</release>
+  <release>0.3.1</release>
   <api>0.3.0</api>
  </version>
  <stability>
@@ -27,11 +27,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
  <notes>
-	 * refactored the code
-	 * fixed static::method()->method()
-	 * fixed $obj[...]
-	 * fixed :set autoload
-	 * fixed $var in class ... { ... }
+  * added the LoadScript Extension to load and run scripts directly from the shell
+  * added more tags 
+  * fixed printing of executiong time
  </notes>
  <contents>
   <dir name="/">
@@ -59,6 +57,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <file baseinstalldir="" name="PHP/Shell/Extensions/Colour.php" role="php" />
    <file baseinstalldir="" name="PHP/Shell/Extensions/ExecutionTime.php" role="php" />
    <file baseinstalldir="" name="PHP/Shell/Extensions/Prototypes.php" role="php" />
+   <file baseinstalldir="" name="PHP/Shell/Extensions/LoadScript.php" role="php" />
    <file baseinstalldir="" name="examples/php-shell-cmd.php" role="doc" />
    <file baseinstalldir="" name="ShellTests.php" role="test" />
    <file baseinstalldir="" name="README" role="doc" />
@@ -98,6 +97,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <ignore name="scripts/php-shell.bat" />
   </filelist>
  </phprelease>
+
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-29</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+   <notes>
+   </notes>
+  </release>
+ </changelog>
+
 
  <changelog>
   <release>
@@ -242,3 +259,4 @@ http://pear.php.net/dtd/package-2.0.xsd">
   </release>
  </changelog>
 </package>
+
