@@ -91,7 +91,8 @@ SOFTWARE.
 require_once "PHP/Shell/Commands.php";
 require_once "PHP/Shell/Options.php"; /* for the tab-complete */
 
-class PHP_Shell {
+class PHP_Shell
+{
     /** 
     * current code-buffer
     * @var string
@@ -120,7 +121,8 @@ class PHP_Shell {
     /**
     * init the shell and change if readline support is available
     */ 
-    public function __construct() {
+    public function __construct()
+    {
         $this->code = '';
 
         $this->stdin = null;
@@ -150,9 +152,12 @@ class PHP_Shell {
     *
     * @return int 0 if a executable statement is in the code-buffer, non-zero otherwise
     */
-    public function parse() {
-        ## remove empty lines
-        if (trim($this->code) == '') return 1;
+    public function parse()
+    {
+        // remove empty lines
+        if (trim($this->code) == '') {
+            return 1;
+        }
 
         $t = token_get_all('<?php '.$this->code.' ?>');
   
@@ -711,7 +716,8 @@ class PHP_Shell {
     * 
     * @return string a input-line
     */
-    public function readline() {
+    public function readline()
+    {
         if (empty($this->code)) print PHP_EOL;
 
         $prompt = (empty($this->code)) ? '>> ' : '.. ';
@@ -748,7 +754,8 @@ class PHP_Shell {
     *
     * @return string the inline help as string 
     */
-    public function cmdHelp($l) {
+    public function cmdHelp($l)
+    {
         $o = 'Inline Help:'.PHP_EOL;
 
         $cmds = PHP_Shell_Commands::getInstance()->getCommands();
@@ -768,7 +775,8 @@ class PHP_Shell {
     *
     * @return string the inline help as string 
     */
-    public function cmdLicense($l) {
+    public function cmdLicense($l)
+    {
         $o = <<<EOF
 (c) 2006 Jan Kneschke <jan@kneschke.de>
 
@@ -800,7 +808,8 @@ EOF;
     * @return bool false to leave the input() call
     * @see input
     */
-    protected function cmdQuit($l) {
+    protected function cmdQuit($l)
+    {
         return false;
     }
 
@@ -811,7 +820,8 @@ EOF;
     *
     * @return bool false on 'quit' or EOF, true otherwise
     */
-    public function input() {
+    public function input()
+    {
         $l = $this->readline();
 
         /* got EOF ? */
@@ -853,55 +863,68 @@ EOF;
     * 
     * @return string the code-buffer
     */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
     
     /**
     * reset the code-buffer
+    *
+    * @return void
     */
-    public function resetCode() {
+    public function resetCode()
+    {
         $this->code = '';
     }
  
     /**
-    * append code to the code-buffer
-    *
-    * @param string $code input buffer
-    */
-    public function appendCode($code) {
-        if (strlen($code)) $code .= PHP_EOL;
+     * append code to the code-buffer
+     *
+     * @param string $code input buffer
+     *
+     * @return void
+     */
+    public function appendCode($code)
+    {
+        if (strlen($code)) {
+            $code .= PHP_EOL;
+        }
 
         $this->code .= $code;
     }
    
     /**
-    * check if readline support is enabled
-    *
-    * @return bool true if enabled, false otherwise
-    */
-    public function hasReadline() {
+     * check if readline support is enabled
+     *
+     * @return bool true if enabled, false otherwise
+     */
+    public function hasReadline()
+    {
         return $this->have_readline;
     }
 
     /**
-    * get version of the class
-    *
-    * @return string version-string
-    */
-    public function getVersion() {
+     * get version of the class
+     *
+     * @return string version-string
+     */
+    public function getVersion()
+    {
         return $this->version;
     }
 }
 
 /**
-* a readline completion callback
-*
-* @param string $str linebuffer
-* @param integer $pos position in linebuffer
-* @return array list of possible matches
-*/
-function __shell_readline_complete($str, $pos) {
+ * a readline completion callback
+ *
+ * @param string  $str linebuffer
+ * @param integer $pos position in linebuffer
+ *
+ * @return array list of possible matches
+ */
+function __shell_readline_complete($str, $pos)
+{
     $in = readline_info('line_buffer');
 
     /**
@@ -1025,7 +1048,6 @@ function __shell_readline_complete($str, $pos) {
     $m[] = 'class';
     $m[] = 'const';
     $m[] = 'continue';
-    # $m[] = 'declare';
     $m[] = 'default';
     $m[] = 'die(';
     $m[] = 'do';
@@ -1033,7 +1055,6 @@ function __shell_readline_complete($str, $pos) {
     $m[] = 'else';
     $m[] = 'elseif';
     $m[] = 'empty(';
-    # $m[] = 'enddeclare';
     $m[] = 'eval(';
     $m[] = 'exception';
     $m[] = 'extends';
@@ -1065,7 +1086,6 @@ function __shell_readline_complete($str, $pos) {
     $m[] = 'throw';
     $m[] = 'try';
     $m[] = 'unset(';
-    # $m[] = 'use';
     $m[] = 'var';
     $m[] = 'while';
     $m[] = 'xor';
@@ -1075,7 +1095,6 @@ function __shell_readline_complete($str, $pos) {
     $m[] = '__LINE__';
     $m[] = '__METHOD__';
 
-    # printf("%s ... %s\n", $str, $pos);
     return $m;
 }
 
