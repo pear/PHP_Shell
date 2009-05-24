@@ -1,10 +1,10 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-require_once 'PHPUnit2/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'PHP/Shell.php';
 
-class ShellTests extends PHPUnit2_Framework_TestCase {
+class ShellTest extends PHPUnit_Framework_TestCase {
     private $vars;
 
     public function setUp() {
