@@ -14,19 +14,20 @@
 * the depth functions track the recursive depth of the includes. The
 * wrapper uses it to print the dots at the beginning of the line.
 */
-class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension {
+class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
+{
     /**
-    * is the extenion enabled
-    *
-    * @var bool
-    */
+     * is the extenion enabled
+     *
+     * @var bool
+     */
     protected $autoload_debug = false;
 
     /**
-    * recursive depth of the includes
-    *
-    * @var int
-    */
+     * recursive depth of the includes
+     *
+     * @var int
+     */
     protected $autoload_depth = 0;
 
     public function register() {
@@ -35,10 +36,10 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension {
     }
 
     /**
-    * handle the autoloaddebug flag
-    *
-    * @param string  
-    */
+     * handle the autoloaddebug flag
+     *
+     * @param string  
+     */
     public function optSetAutoloadDebug($key, $value) {
         switch ($value) {
         case "enable":
@@ -59,24 +60,24 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension {
     }
 
     /**
-    * is the autoload-debug flag set ?
-    *
-    * @return bool true if debug is enabled
-    */
+     * is the autoload-debug flag set ?
+     *
+     * @return bool true if debug is enabled
+     */
     public function isAutoloadDebug() {
         return $this->autoload_debug;
     }
 
     /**
-    * increment the depth counter
-    */
+     * increment the depth counter
+     */
     public function incAutoloadDepth() {
         return $this->autoload_depth++;
     }
     
     /**
-    * decrement the depth counter
-    */
+     * decrement the depth counter
+     */
     public function decAutoloadDepth() {
         return --$this->autoload_depth;
     }

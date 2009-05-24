@@ -1,5 +1,6 @@
 <?php
-class PHP_ShellPrototypes {
+class PHP_ShellPrototypes
+{
     static private $instance = null;
 
     protected $prototype = array (
@@ -16445,7 +16446,8 @@ class PHP_ShellPrototypes {
   ),
 )    ;
 
-    public function get($k) {
+    public function get($k)
+    {
         if (isset($this->prototype[$k])) {
             return $this->prototype[$k];
         } else {
@@ -16453,7 +16455,8 @@ class PHP_ShellPrototypes {
         }
     }
 
-    static function getInstance() {
+    static function getInstance()
+    {
         if (is_null(self::$instance)) {
             $class = __CLASS__;
             self::$instance = new $class();

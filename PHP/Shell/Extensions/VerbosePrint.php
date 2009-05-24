@@ -1,9 +1,16 @@
 <?php
-class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension {
+class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension
+{
     protected $opt_verbose = false;
     protected $oneshot_verbose = false;
 
-    public function register() {
+    /**
+     * Register a command
+     * 
+     * @return void
+     */
+    public function register()
+    {
         $cmd = PHP_Shell_Commands::getInstance();
         $cmd->registerCommand('#^p #', $this, 'cmdPrint', 'p <var>', 'print the variable verbosly');
 
@@ -13,13 +20,16 @@ class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension {
     }
 
     /**
-    * handle the 'p ' command
-    *
-    * set the verbose flag
-    *
-    * @return string the pure command-string without the 'p ' command
-    */
-    public function cmdPrint($l) {
+     * handle the 'p ' command
+     *
+     * set the verbose flag
+     *
+     * @param string $l Line
+     *
+     * @return string the pure command-string without the 'p ' command
+     */
+    public function cmdPrint($l)
+    {
         $this->oneshot_verbose = true;
 
         $cmd = substr($l, 2);
@@ -27,8 +37,17 @@ class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension {
         return $cmd;
     }
 
-    public function optSetVerbose($key, $val) {
-        switch($val) {
+    /**
+     * Set verbose
+     *
+     * @param string $key   Unused
+     * @param string $value One of 'false', 'on', etc
+     *
+     * @return void
+     */
+    public function optSetVerbose($key, $value)
+    {
+        switch($value) {
         case "false":
         case "on":
         case "1":
@@ -40,11 +59,12 @@ class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension {
     }
 
     /**
-    * check if we have a verbose print-out
-    *
-    * @return bool 1 if verbose, 0 otherwise
-    */
-    public function isVerbose() {
+     * check if we have a verbose print-out
+     *
+     * @return bool 1 if verbose, 0 otherwise
+     */
+    public function isVerbose()
+    {
         $v = $this->opt_verbose || $this->oneshot_verbose;
 
         $this->oneshot_verbose = false;

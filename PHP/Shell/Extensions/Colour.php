@@ -24,19 +24,19 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
     const C_WHITE = "\033[1;37m";
 
     /**
-    * shell colours
-    *
-    * @var array
-    * @see applyColourScheme
-    */
+     * shell colours
+     *
+     * @var array
+     * @see applyColourScheme
+     */
     protected $colours;
 
     /**
-    * shell colour schemes
-    *
-    * @var array
-    * @see registerColourScheme
-    */
+     * shell colour schemes
+     *
+     * @var array
+     * @see registerColourScheme
+     */
     protected $colour_scheme;
 
     public function register() {
@@ -65,8 +65,8 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
     }
 
     /**
-    * background colours
-    */
+     * background colours
+     */
     public function optSetBackground($key, $value) {
         if (is_null($value)) {
             print(':set '.$key.' needs a colour-scheme, e.g. :set '.$key.'=dark');
@@ -79,21 +79,21 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
     }
 
     /**
-    * get a colour for the shell
-    *
-    * @param string $type one of (value|exception|reset|default)
-    * @return string a colour string or a empty string
-    */
+     * get a colour for the shell
+     *
+     * @param string $type one of (value|exception|reset|default)
+     * @return string a colour string or a empty string
+     */
     public function getColour($type) {
         return isset($this->colour[$type]) ? $this->colour[$type] : '';
     }
 
     /**
-    * apply a colour scheme to the current shell
-    *
-    * @param string $scheme name of the scheme
-    * @return false if colourscheme is not known, otherwise true
-    */
+     * apply a colour scheme to the current shell
+     *
+     * @param string $scheme name of the scheme
+     * @return false if colourscheme is not known, otherwise true
+     */
     public function applyColourScheme($scheme) {
         if (!isset($this->colour_scheme[$scheme])) return false;
 
@@ -103,11 +103,11 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
     }
 
     /**
-    * registers a colour scheme
-    *
-    * @param string $scheme name of the colour scheme
-    * @param array a array of colours
-    */
+     * registers a colour scheme
+     *
+     * @param string $scheme name of the colour scheme
+     * @param array a array of colours
+     */
     public function registerColourScheme($scheme, $colours) {
         if (!is_array($colours)) return;
 

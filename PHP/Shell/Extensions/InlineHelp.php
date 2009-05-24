@@ -13,24 +13,24 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension {
     }
 
     /**
-    * handle the '?' commands
-    *
-    * With the help of the Reflection Class we extract the DocComments and display them
-    * For internal Functions we extract the prototype from the php source.
-    *
-    * ? Class::method()
-    * ? $obj->method()
-    * ? Class::property
-    * ? $obj::property
-    * ? Class
-    * ? $obj
-    * ? function()
-    *
-    * The license of the PHP_Shell class
-    * ? license
-    *
-    * @return string the help text
-    */
+     * handle the '?' commands
+     *
+     * With the help of the Reflection Class we extract the DocComments and display them
+     * For internal Functions we extract the prototype from the php source.
+     *
+     * ? Class::method()
+     * ? $obj->method()
+     * ? Class::property
+     * ? $obj::property
+     * ? Class
+     * ? $obj
+     * ? function()
+     *
+     * The license of the PHP_Shell class
+     * ? license
+     *
+     * @return string the help text
+     */
     public function cmdHelp($l) {
         if ("? " == substr($l, 0, strlen("? "))) {
             $str = substr($l, 2);

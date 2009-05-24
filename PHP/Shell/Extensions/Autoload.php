@@ -15,10 +15,10 @@
     
 class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
     /**
-    * does the use want to use the internal autoload ? 
-    *
-    * @var bool
-    */
+     * does the use want to use the internal autoload ? 
+     *
+     * @var bool
+     */
     protected $autoload = false;
 
     public function register() {
@@ -29,11 +29,11 @@ class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
     }
 
     /**
-    * sets the autoload-flag
-    *
-    * - the $value is ignored and doesn't have to be set
-    * - if __autoload() is defined, the set fails
-    */
+     * sets the autoload-flag
+     *
+     * - the $value is ignored and doesn't have to be set
+     * - if __autoload() is defined, the set fails
+     */
     public function optSetAutoload($key, $value) {
         if ($this->autoload) {
             print('autload is already enabled');
@@ -49,10 +49,10 @@ class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
     }
 
     /**
-    * is the autoload-flag set ?
-    *
-    * @return bool true if __autoload() should be set by the external wrapper
-    */
+     * is the autoload-flag set ?
+     *
+     * @return bool true if __autoload() should be set by the external wrapper
+     */
     public function isAutoloadEnabled() {
         return $this->autoload;
     }
