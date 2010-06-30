@@ -621,7 +621,7 @@ class PHP_Shell
                         if (!interface_exists($implements, false)) {
                             throw new Exception(
                                 "Can't implement not existing Interface " .
-                                "'$implements' for Class '$classname'",
+                                "'$implements' for Class '$classname'"
                             );
                         }
                     }
