@@ -53,7 +53,7 @@ class PHP_Shell_Options implements PHP_Shell_Extension
      */ 
     public function registerOption($option, $obj, $setor, $getor = null)
     {
-        if (!method_exists($obj, $setor)) {
+        if (!is_callable(array($obj, $setor))) {
             $msg = sprintf(
                 "setor %s doesn't exist on class %s",
                 $setor, get_class($obj)

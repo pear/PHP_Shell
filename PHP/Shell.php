@@ -352,7 +352,7 @@ class PHP_Shell
 
                             /* obj */
 
-                            if (!method_exists($object, $method)) {
+                            if (!is_callable(array($object, $method))) {
                                 throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'",
                                     $objname, get_class($object), $method));
                             }
@@ -386,7 +386,7 @@ class PHP_Shell
 
                         /* obj */
 
-                        if (!method_exists($object, $method)) {
+                        if (!is_callable(array($object, $method))) {
                             throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'",
                                 $objname, get_class($object), $method));
                         }
@@ -430,7 +430,7 @@ class PHP_Shell
 
                         /* obj */
 
-                        if (!method_exists($object, $method)) {
+                        if (!is_callable(array($object, $method))) {
                             throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'",
                                 $objname, get_class($object), $method));
                         }
