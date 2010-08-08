@@ -279,6 +279,7 @@ class PHP_Shell
                 case T_BOOL_CAST:
                 case T_INT_CAST:
                 case T_STRING_CAST:
+                case T_CURLY_OPEN:
 
                     /* just go on */
                     break;
@@ -289,7 +290,11 @@ class PHP_Shell
                     break;
                 }
                 if (!$ignore) {
-                    $eval .= $token[1]." ";
+                    if ($token[0]==T_CURLY_OPEN) {
+                        $eval .= $token[1];
+                    } else {
+                        $eval .= $token[1]." ";
+                    }
                     $ts[] = array("token" => $token[0], "value" => $token[1]);
                 }
             } else {
