@@ -1,2 +1,2 @@
 @echo off
-@php_bin@ -q @php_dir@/php-shell-cmd.php
+"@php_bin@" -q "@php_dir@/php-shell-cmd.php"
