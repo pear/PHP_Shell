@@ -31,6 +31,7 @@ require_once "PHP/Shell/Extensions/ExecutionTime.php";
 require_once "PHP/Shell/Extensions/InlineHelp.php";
 require_once "PHP/Shell/Extensions/VerbosePrint.php";
 require_once "PHP/Shell/Extensions/LoadScript.php";
+require_once "PHP/Shell/Extensions/Echo.php";
     
 /**
 * default error-handler
@@ -71,6 +72,7 @@ $__shell_exts->registerExtensions(
         "inlinehelp"     => new PHP_Shell_Extensions_InlineHelp(),
         "verboseprint"   => new PHP_Shell_Extensions_VerbosePrint(),
         "loadscript"     => new PHP_Shell_Extensions_LoadScript(),
+        "echo"           => new PHP_Shell_Extensions_Echo(),
     )
 );
 
@@ -126,7 +128,7 @@ while ($__shell->input()) {
             $__shell_exts->exectime->startExecTime();
 
             $__shell_retval = eval($__shell->getCode()); 
-            if (isset($__shell_retval)) {
+            if (isset($__shell_retval) && $__shell_exts->echo->isEcho()) {
                 print $__shell_exts->colour->getColour("value");
 
                 if (function_exists("__shell_print_var")) {
