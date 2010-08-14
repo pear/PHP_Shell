@@ -4,10 +4,12 @@
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'PHP/Shell.php';
 
-class ShellTest extends PHPUnit_Framework_TestCase {
+class ShellTest extends PHPUnit_Framework_TestCase
+{
     private $vars;
 
-    public function setUp() {
+    public function setUp()
+    {
         /* create a fresh shell object */
 
         $this->shell = new PHP_Shell();
@@ -15,17 +17,19 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         $this->vars = array();
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         foreach ($this->vars as $k => $v) {
             unset($GLOBALS[$k]);
         }
     }
 
-    public function execute() {
+    public function execute()
+    {
         $__retval = null;
 
-        ## get local vars
-        foreach($this->vars as $__k => $__v) {
+        // get local vars
+        foreach ($this->vars as $__k => $__v) {
             ${$__k} = $GLOBALS[$__k];
         }
         unset($__k);
@@ -34,7 +38,7 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         if ($this->shell->parse() == 0) {
             $__retval = eval($this->shell->getCode()); 
 
-            ## export vars to global scope
+            // export vars to global scope
             foreach (array_diff_key(get_defined_vars(), $GLOBALS, array("__retval" => 1)) as $__k => $__v) {
                 $GLOBALS[$__k] = $__v;
                 $this->vars[$__k] = $__v;
@@ -44,7 +48,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         return $__retval;
     }
 
-    public function testComments() {
+    public function testComments()
+    {
         $tests = array(
             '## comment',
             '/* comment */',
@@ -60,7 +65,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testUndefVars() {
+    public function testUndefVars()
+    {
         $tests = array(
             '$v',
             );
@@ -68,13 +74,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testNewClass() {
+    public function testNewClass()
+    {
         $tests = array(
             '$v = new ArrayObject()',
             );
@@ -85,7 +95,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testMethod() {
+    public function testMethod()
+    {
         $tests = array(
             '$v = new ArrayObject()',
             '$v->count()'
@@ -97,7 +108,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testNotExistingMethod() {
+    public function testNotExistingMethod()
+    {
         $tests = array(
             '$v = new ArrayObject()',
             '$v->not_existing()'
@@ -106,13 +118,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testNotExistingClass() {
+    public function testNotExistingClass()
+    {
         $tests = array(
             '$not_existing->not_existing()'
             );
@@ -120,13 +136,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testClass() {
+    public function testClass()
+    {
         $tests = array(
             'class a { const a = "a"; }'
             );
@@ -134,12 +154,13 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
+            // we should get a Exception
             $this->execute();
         }
     }
 
-    public function testClassExtends() {
+    public function testClassExtends()
+    {
         $tests = array(
             'class b extends a { }',
             );
@@ -147,12 +168,13 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
+            // we should get a Exception
             $this->execute();
         }
     }
 
-    public function testClassExtendsNotExisting() {
+    public function testClassExtendsNotExisting()
+    {
         $tests = array(
             'class c extends not_existing { }',
             );
@@ -160,13 +182,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testClassDuplicate() {
+    public function testClassDuplicate()
+    {
         $tests = array(
             'class duplicate_class { }',
             'class duplicate_class { }',
@@ -175,13 +201,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute(); 
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testClassDuplicateMethod() {
+    public function testClassDuplicateMethod()
+    {
         $tests = array(
             'class d { function duplicate_method () { } function duplicate_method() {} }',
             );
@@ -189,13 +219,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testClassConstant() {
+    public function testClassConstant()
+    {
         $tests = array(
             'a::a',
             );
@@ -207,7 +241,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testClassConstantNotExisting() {
+    public function testClassConstantNotExisting()
+    {
         $tests = array(
             'a::not_existing',
             );
@@ -215,13 +250,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testFunctionDuplicate() {
+    public function testFunctionDuplicate()
+    {
         $tests = array(
             'function duplicate_function() {}',
             'function duplicate_function() {}',
@@ -230,13 +269,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testFunctionDynamicNotExisting() {
+    public function testFunctionDynamicNotExisting()
+    {
         $tests = array(
             '$v = "vfunc"',
             '$v()',
@@ -245,13 +288,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testLoops() {
+    public function testLoops()
+    {
         $tests = array(
             '$a = array(0 => "2", 1 => "3")',
             'foreach ($a as $k => $v) { }',
@@ -267,7 +314,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testIf() {
+    public function testIf()
+    {
         $tests = array(
             'if (0) { } else if (1) { } else { } ',
             );
@@ -279,7 +327,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testImplements() {
+    public function testImplements()
+    {
         $tests = array(
             'class e implements Serializable { function serialize() { } function unserialize($a) {} }',
             );
@@ -291,7 +340,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testInterfaceNotExists() {
+    public function testInterfaceNotExists()
+    {
         $tests = array(
             'class f implements not_existing_interface { }',
             );
@@ -299,13 +349,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try { 
+                $this->execute();
+                $this->fail(); 
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testAbstractClass() {
+    public function testAbstractClass()
+    {
         $tests = array(
             'abstract class g { abstract function f(); }',
             '$f = new g()',
@@ -314,13 +368,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testStaticCall() {
+    public function testStaticCall()
+    {
         $tests = array(
             'class h { static function foo() { } }',
             'h::foo()'
@@ -333,7 +391,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testStaticCallNotExists() {
+    public function testStaticCallNotExists()
+    {
         $tests = array(
             'h::not_exists()'
             );
@@ -341,13 +400,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testObjectArray() {
+    public function testObjectArray()
+    {
         $tests = array(
             'class obj_array { function params($p1, $p2) { } }',
             '$c = new ReflectionClass("obj_array")',
@@ -362,7 +425,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testObjectArrayMethodNotExists() {
+    public function testObjectArrayMethodNotExists()
+    {
         $tests = array(
             '$c = new ReflectionClass("obj_array")',
             '$m = $c->getMethods()',
@@ -372,13 +436,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute(); 
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testVariableMethod() {
+    public function testVariableMethod()
+    {
         $tests = array(
             '$c = new obj_array()',
             '$m = "params"',
@@ -392,7 +460,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testVariableStaticMethod() {
+    public function testVariableStaticMethod()
+    {
         $tests = array(
             '$m = "params"',
             'obj_array::$m(1, 2)'
@@ -405,7 +474,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testVariableMethodNotExisting() {
+    public function testVariableMethodNotExisting()
+    {
         $tests = array(
             '$c = new obj_array()',
             '$m = "foo"',
@@ -415,13 +485,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testInternalMethodCall() {
+    public function testInternalMethodCall()
+    {
         $tests = array(
             'class thisclass { function a() { } function b () { $this->a(); }}',
             );
@@ -433,7 +507,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testSingletonClass() {
+    public function testSingletonClass()
+    {
         $tests = array(
             'class singleton { '.
             '  static private $inst = null; '.
@@ -454,7 +529,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testGetInstance() {
+    public function testGetInstance()
+    {
         $tests = array(
             'singleton::getInstance()->get()'
             );
@@ -466,7 +542,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testArrayAccessOnObject() {
+    public function testArrayAccessOnObject()
+    {
         $tests = array(
             '$a = new stdClass()',
             '$a[0]'
@@ -475,13 +552,17 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->shell->resetCode();
             $this->shell->appendCode($code);
 
-            ## we should get a Exception
-            try { $this->execute(); $this->fail(); }
-            catch ( Exception $e ) { }
+            // we should get a Exception
+            try {
+                $this->execute();
+                $this->fail();
+            } catch ( Exception $e ) {
+            }
         }
     }
 
-    public function testFunctionVars() {
+    public function testFunctionVars()
+    {
         $tests = array(
             'function '.__FUNCTION__.'($a) { print $a; }'
             );
@@ -493,7 +574,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testMethodVars() {
+    public function testMethodVars()
+    {
         $tests = array(
             'class '.__FUNCTION__.' { function f2($a) { print $a; } }'
             );
@@ -505,7 +587,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testMethodDynamicConst() {
+    public function testMethodDynamicConst()
+    {
         $tests = array(
             'class '.__FUNCTION__.' { function f2($a) { print $a->foo; } }'
             );
@@ -517,7 +600,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testMethodDynamicFunction() {
+    public function testMethodDynamicFunction()
+    {
         $tests = array(
             'class '.__FUNCTION__.' { function f2($a) { print $a->foo(); } }'
             );
@@ -528,7 +612,8 @@ class ShellTest extends PHPUnit_Framework_TestCase {
             $this->execute();
         }
     }
-    public function testMethodDynamicFunctionDynamic() {
+    public function testMethodDynamicFunctionDynamic()
+    {
         $tests = array(
             'class '.__FUNCTION__.' { function f2($a) { print $a->$foo(); } }'
             );

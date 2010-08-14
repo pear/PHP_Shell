@@ -15,21 +15,23 @@ PHP-Barebone-Shell - Version %s%s
 
 EOF;
 
-printf($f, 
+printf(
+    $f, 
     $__shell->getVersion(), 
-    $__shell->hasReadline() ? ', with readline() support' : '');
+    $__shell->hasReadline() ? ', with readline() support' : ''
+);
 unset($f);
 
-while($__shell->input()) {
+while ($__shell->input()) {
     try {
         if ($__shell->parse() == 0) {
-            ## we have a full command, execute it
+            // we have a full command, execute it
 
             $__shell_retval = eval($__shell->getCode()); 
             if (isset($__shell_retval)) {
                 var_export($__shell_retval);
             }
-            ## cleanup the variable namespace
+            // cleanup the variable namespace
             unset($__shell_retval);
             $__shell->resetCode();
         }
@@ -38,7 +40,7 @@ while($__shell->input()) {
         
         $__shell->resetCode();
 
-        ## cleanup the variable namespace
+        // cleanup the variable namespace
         unset($__shell_exception);
     }
 }

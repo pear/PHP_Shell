@@ -41,34 +41,38 @@ require_once "PHP/Shell/Extensions/LoadScript.php";
 * you can set your own error-handler by createing a function named
 * __shell_error_handler
 *
-* @param integer $errno Error-Number
-* @param string $errstr Error-Message
-* @param string $errfile Filename where the error was raised
+* @param integer  $errno   Error-Number
+* @param string   $errstr  Error-Message
+* @param string   $errfile Filename where the error was raised
 * @param interger $errline Line-Number in the File
-* @param mixed $errctx ...
+* @param mixed    $errctx  ...
 */
-function __shell_default_error_handler($errno, $errstr, $errfile, $errline, $errctx) {
-    ## ... what is this errno again ?
-    if ($errno == 2048) return;
+function PHP_Shell_defaultErrorHandler($errno, $errstr, $errfile, $errline, $errctx)
+{
+    // ... what is this errno again ?
+    if ($errno == 2048) {
+        return;
+    }
   
     throw new Exception(sprintf("%s:%d\r\n%s", $errfile, $errline, $errstr));
 }
 
-set_error_handler("__shell_default_error_handler");
+set_error_handler("PHP_Shell_defaultErrorHandler");
 
 $__shell = new PHP_Shell();
 $__shell_exts = PHP_Shell_Extensions::getInstance();
-$__shell_exts->registerExtensions(array(
-    "options"        => PHP_Shell_Options::getInstance(), /* the :set command */
-
-    "autoload"       => new PHP_Shell_Extensions_Autoload(),
-    "autoload_debug" => new PHP_Shell_Extensions_AutoloadDebug(),
-    "colour"         => new PHP_Shell_Extensions_Colour(),
-    "exectime"       => new PHP_Shell_Extensions_ExecutionTime(),
-    "inlinehelp"     => new PHP_Shell_Extensions_InlineHelp(),
-    "verboseprint"   => new PHP_Shell_Extensions_VerbosePrint(),
-    "loadscript"     => new PHP_Shell_Extensions_LoadScript(),
-));
+$__shell_exts->registerExtensions(
+    array(
+        "options"        => PHP_Shell_Options::getInstance(), /* the :set command */
+        "autoload"       => new PHP_Shell_Extensions_Autoload(),
+        "autoload_debug" => new PHP_Shell_Extensions_AutoloadDebug(),
+        "colour"         => new PHP_Shell_Extensions_Colour(),
+        "exectime"       => new PHP_Shell_Extensions_ExecutionTime(),
+        "inlinehelp"     => new PHP_Shell_Extensions_InlineHelp(),
+        "verboseprint"   => new PHP_Shell_Extensions_VerbosePrint(),
+        "loadscript"     => new PHP_Shell_Extensions_LoadScript(),
+    )
+);
 
 $f = <<<EOF
 PHP-Shell - Version %s%s
@@ -78,13 +82,15 @@ PHP-Shell - Version %s%s
 
 EOF;
 
-printf($f, 
+printf(
+    $f, 
     $__shell->getVersion(), 
-    $__shell->hasReadline() ? ', with readline() support' : '');
+    $__shell->hasReadline() ? ', with readline() support' : ''
+);
 unset($f);
 
 print $__shell_exts->colour->getColour("default");
-while($__shell->input()) {
+while ($__shell->input()) {
     if ($__shell_exts->autoload->isAutoloadEnabled() && !function_exists('__autoload')) {
         /**
         * default autoloader
@@ -98,7 +104,8 @@ while($__shell->input()) {
         * @param string $classname name of the class
         */
 
-        function __autoload($classname) {
+        function __autoload($classname)
+        {
             global $__shell_exts;
 
             if ($__shell_exts->autoload_debug->isAutoloadDebug()) {
@@ -114,7 +121,7 @@ while($__shell->input()) {
     try {
         $__shell_exts->exectime->startParseTime();
         if ($__shell->parse() == 0) {
-            ## we have a full command, execute it
+            // we have a full command, execute it
 
             $__shell_exts->exectime->startExecTime();
 
@@ -128,7 +135,7 @@ while($__shell->input()) {
                     var_export($__shell_retval);
                 }
             }
-            ## cleanup the variable namespace
+            // cleanup the variable namespace
             unset($__shell_retval);
             $__shell->resetCode();
         }
@@ -139,13 +146,14 @@ while($__shell->input()) {
         
         $__shell->resetCode();
 
-        ## cleanup the variable namespace
+        // cleanup the variable namespace
         unset($__shell_exception);
     }
     print $__shell_exts->colour->getColour("default");
     $__shell_exts->exectime->stopTime();
     if ($__shell_exts->exectime->isShow()) {
-        printf(" (parse: %.4fs, exec: %.4fs)", 
+        printf(
+            " (parse: %.4fs, exec: %.4fs)", 
             $__shell_exts->exectime->getParseTime(),
             $__shell_exts->exectime->getExecTime()
         );
