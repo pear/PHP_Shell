@@ -37,8 +37,13 @@ class PHP_Shell_Options implements PHP_Shell_Extension
     public function register()
     {
         $cmd = PHP_Shell_Commands::getInstance();
-        $cmd->registerCommand('#^:set #', $this, 'cmdSet',
-                              ':set <var>', 'set a shell variable');
+        $cmd->registerCommand(
+            '#^:set #',
+            $this,
+            'cmdSet',
+            ':set <var>',
+            'set a shell variable'
+        );
     }
 
     /**

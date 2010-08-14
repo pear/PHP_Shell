@@ -26,11 +26,12 @@ SOFTWARE.
 /**
 * A interactive PHP Shell
 *
-* The more I work with other languages like python and ruby I like their way how they
-* work on problems. While PHP is very forgiving on errors, it is weak on the debugging
-* side. It was missing a simple to use interactive shell for years. Python and Ruby have
-* their ipython and iruby shell which give you a direct way to interact with the objects.
-* No need to write a script and execute it afterwards.
+* The more I work with other languages like python and ruby I like their way how
+* they work on problems. While PHP is very forgiving on errors, it is weak on the
+* debugging side. It was missing a simple to use interactive shell for years.
+* Python and Ruby have their ipython and iruby shell which give you a direct way
+* to interact with the objects.  No need to write a script and execute it
+* afterwards.
 *
 * Starting the Shell:
 *
@@ -130,7 +131,7 @@ class PHP_Shell
         $this->have_readline = function_exists('readline');
 
         if ($this->have_readline) {
-            readline_completion_function('__shell_readline_complete');
+            readline_completion_function('PHP_Shell_readlineComplete');
         }
 
         $this->use_readline = true;
@@ -285,7 +286,14 @@ class PHP_Shell
                     break;
                 default:
                     /* debug unknown tags*/
-                    error_log(sprintf("unknown tag: %d (%s): %s".PHP_EOL, $token[0], token_name($token[0]), $token[1]));
+                    error_log(
+                        sprintf(
+                            "unknown tag: %d (%s): %s".PHP_EOL,
+                            $token[0],
+                            token_name($token[0]),
+                            $token[1]
+                        )
+                    );
 
                     break;
                 }
@@ -306,23 +314,25 @@ class PHP_Shell
                 case '(':
                     /* walk backwards through the tokens */
 
-                    if ($last >= 4 &&
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_OBJECT_OPERATOR &&
-                        $ts[$last - 3]['token'] == ')' ) {
+                    if ($last >= 4
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_OBJECT_OPERATOR
+                        && $ts[$last - 3]['token'] == ')' 
+                    ) {
                         /* func()->method()
                         *
                         * we can't know what func() is return, so we can't
                         * say if the method() exists or not
                         *
                         */
-                    } else if ($last >= 3 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[0]['token'] != T_ABSTRACT && /* if we are not in a class definition */
-                        $ts[1]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_OBJECT_OPERATOR &&
-                        $ts[$last - 3]['token'] == T_VARIABLE ) {
+                    } else if ($last >= 3
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[0]['token'] != T_ABSTRACT /* if we are not in a class definition */
+                        && $ts[1]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_STRING 
+                        && $ts[$last - 2]['token'] == T_OBJECT_OPERATOR 
+                        && $ts[$last - 3]['token'] == T_VARIABLE 
+                    ) {
 
                         /* $object->method( */
 
@@ -353,15 +363,22 @@ class PHP_Shell
                             /* obj */
 
                             if (!is_callable(array($object, $method))) {
-                                throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'",
-                                    $objname, get_class($object), $method));
+                                throw new Exception(
+                                    sprintf(
+                                        "Variable %s (Class '%s') doesn't have a method named '%s'",
+                                        $objname,
+                                        get_class($object),
+                                        $method
+                                    )
+                                );
                             }
                         }
-                    } else if ($last >= 3 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_VARIABLE &&
-                        $ts[$last - 2]['token'] == T_OBJECT_OPERATOR &&
-                        $ts[$last - 3]['token'] == T_VARIABLE ) {
+                    } else if ($last >= 3
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_VARIABLE
+                        && $ts[$last - 2]['token'] == T_OBJECT_OPERATOR
+                        && $ts[$last - 3]['token'] == T_VARIABLE 
+                    ) {
 
                         /* $object->$method( */
 
@@ -387,18 +404,24 @@ class PHP_Shell
                         /* obj */
 
                         if (!is_callable(array($object, $method))) {
-                            throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'",
-                                $objname, get_class($object), $method));
+                            throw new Exception(
+                                sprintf(
+                                    "Variable %s (Class '%s') doesn't have a method named '%s'",
+                                    $objname,
+                                    get_class($object),
+                                    $method
+                                )
+                            );
                         }
 
-                    } else if ($last >= 6 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_OBJECT_OPERATOR &&
-                        $ts[$last - 3]['token'] == ']' &&
-                            /* might be anything as index */
-                        $ts[$last - 5]['token'] == '[' &&
-                        $ts[$last - 6]['token'] == T_VARIABLE ) {
+                    } else if ($last >= 6
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_OBJECT_OPERATOR
+                        && $ts[$last - 3]['token'] == ']' /* might be anything as index before */
+                        && $ts[$last - 5]['token'] == '[' /* might be anything as index after */
+                        && $ts[$last - 6]['token'] == T_VARIABLE 
+                    ) {
 
                         /* $object[...]->method( */
 
@@ -431,15 +454,22 @@ class PHP_Shell
                         /* obj */
 
                         if (!is_callable(array($object, $method))) {
-                            throw new Exception(sprintf("Variable %s (Class '%s') doesn't have a method named '%s'",
-                                $objname, get_class($object), $method));
+                            throw new Exception(
+                                sprintf(
+                                    "Variable %s (Class '%s') doesn't have a method named '%s'",
+                                    $objname,
+                                    get_class($object),
+                                    $method
+                                )
+                            );
                         }
 
-                    } else if ($last >= 3 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_DOUBLE_COLON &&
-                        $ts[$last - 3]['token'] == T_STRING ) {
+                    } else if ($last >= 3
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_DOUBLE_COLON
+                        && $ts[$last - 3]['token'] == T_STRING 
+                    ) {
 
                         /* Class::method() */
 
@@ -453,14 +483,20 @@ class PHP_Shell
                         $method = $ts[$last - 1]['value'];
 
                         if (!in_array($method, get_class_methods($classname))) {
-                            throw new Exception(sprintf("Class '%s' doesn't have a method named '%s'",
-                                $classname, $method));
+                            throw new Exception(
+                                sprintf(
+                                    "Class '%s' doesn't have a method named '%s'",
+                                    $classname,
+                                    $method
+                                )
+                            );
                         }
-                    } else if ($last >= 3 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_VARIABLE &&
-                        $ts[$last - 2]['token'] == T_DOUBLE_COLON &&
-                        $ts[$last - 3]['token'] == T_STRING ) {
+                    } else if ($last >= 3
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_VARIABLE
+                        && $ts[$last - 2]['token'] == T_DOUBLE_COLON
+                        && $ts[$last - 3]['token'] == T_STRING 
+                    ) {
 
                         /* $var::method() */
 
@@ -479,14 +515,20 @@ class PHP_Shell
                         $method = $GLOBALS[ltrim($methodname, '$')];
 
                         if (!in_array($method, get_class_methods($classname))) {
-                            throw new Exception(sprintf("Class '%s' doesn't have a method named '%s'",
-                                $classname, $method));
+                            throw new Exception(
+                                sprintf(
+                                    "Class '%s' doesn't have a method named '%s'",
+                                    $classname,
+                                    $method
+                                )
+                            );
                         }
 
-                    } else if ($last >= 2 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_NEW ) {
+                    } else if ($last >= 2
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_NEW 
+                    ) {
 
                         /* new Class() */
 
@@ -508,10 +550,11 @@ class PHP_Shell
                             throw new Exception(sprintf('Class \'%s\' can\'t be instantiated. Is the class abstract ?', $classname));
                         }
 
-                    } else if ($last >= 2 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_FUNCTION ) {
+                    } else if ($last >= 2
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_FUNCTION 
+                    ) {
 
                         /* make sure we are not a in class definition */
 
@@ -522,11 +565,12 @@ class PHP_Shell
                         if (function_exists($func)) {
                             throw new Exception(sprintf('Function \'%s\' is already defined', $func));
                         }
-                    } else if ($last >= 4 &&
-                        $ts[0]['token'] == T_CLASS &&
-                        $ts[1]['token'] == T_STRING &&
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_FUNCTION ) {
+                    } else if ($last >= 4
+                        && $ts[0]['token'] == T_CLASS
+                        && $ts[1]['token'] == T_STRING
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_FUNCTION 
+                    ) {
 
                         /* make sure we are not a in class definition */
 
@@ -541,20 +585,22 @@ class PHP_Shell
 
                         $methods[$func] = 1;
 
-                    } else if ($last >= 1 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[0]['token'] != T_ABSTRACT && /* if we are not in a class definition */
-                        $ts[1]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_STRING ) {
+                    } else if ($last >= 1
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[0]['token'] != T_ABSTRACT /* if we are not in a class definition */
+                        && $ts[1]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_STRING 
+                    ) {
                         /* func() */
                         $funcname = $ts[$last - 1]['value'];
 
                         if (!function_exists($funcname)) {
                             throw new Exception(sprintf("Function %s() doesn't exist", $funcname));
                         }
-                    } else if ($last >= 1 &&
-                        $ts[0]['token'] != T_CLASS && /* if we are not in a class definition */
-                        $ts[$last - 1]['token'] == T_VARIABLE ) {
+                    } else if ($last >= 1
+                        && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
+                        && $ts[$last - 1]['token'] == T_VARIABLE 
+                    ) {
 
                         /* $object has to exist and has to be a object */
                         $funcname = $ts[$last - 1]['value'];
@@ -575,9 +621,10 @@ class PHP_Shell
                 case '{':
                     $need_return = 0;
 
-                    if ($last >= 2 &&
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_CLASS ) {
+                    if ($last >= 2
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_CLASS 
+                    ) {
 
                         /* class name { */
 
@@ -586,11 +633,12 @@ class PHP_Shell
                         if (class_exists($classname, false)) {
                             throw new Exception(sprintf("Class '%s' can't be redeclared", $classname));
                         }
-                    } else if ($last >= 4 &&
-                        $ts[$last - 1]['token'] == T_STRING &&
-                        $ts[$last - 2]['token'] == T_EXTENDS &&
-                        $ts[$last - 3]['token'] == T_STRING &&
-                        $ts[$last - 4]['token'] == T_CLASS ) {
+                    } else if ($last >= 4
+                        && $ts[$last - 1]['token'] == T_STRING
+                        && $ts[$last - 2]['token'] == T_EXTENDS
+                        && $ts[$last - 3]['token'] == T_STRING
+                        && $ts[$last - 4]['token'] == T_CLASS 
+                    ) {
 
                         /* class classname extends classname { */
 
@@ -778,6 +826,8 @@ class PHP_Shell
     /**
     * get the inline help
     *
+    * @param string $l command line
+    *
     * @return string the inline help as string
     */
     public function cmdHelp($l)
@@ -799,6 +849,8 @@ class PHP_Shell
 
     /**
     * get the license string
+    *
+    * @param string $l command line
     *
     * @return string the inline help as string
     */
@@ -831,6 +883,8 @@ EOF;
 
     /**
     * handle the 'quit' command
+    *
+    * @param string $l command line
     *
     * @return bool false to leave the input() call
     * @see input
@@ -952,7 +1006,7 @@ EOF;
  *
  * @return array list of possible matches
  */
-function __shell_readline_complete($str, $pos)
+function PHP_Shell_readlineComplete($str, $pos)
 {
     $in = readline_info('line_buffer');
 

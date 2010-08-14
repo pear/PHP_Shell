@@ -30,7 +30,8 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
      */
     protected $autoload_depth = 0;
 
-    public function register() {
+    public function register()
+    {
         $opt = PHP_Shell_Options::getInstance();
         $opt->registerOption('autoloaddebug', $this, 'optSetAutoloadDebug');
     }
@@ -40,7 +41,8 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
      *
      * @param string  
      */
-    public function optSetAutoloadDebug($key, $value) {
+    public function optSetAutoloadDebug($key, $value)
+    {
         switch ($value) {
         case "enable":
         case "1":
@@ -64,21 +66,24 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
      *
      * @return bool true if debug is enabled
      */
-    public function isAutoloadDebug() {
+    public function isAutoloadDebug()
+    {
         return $this->autoload_debug;
     }
 
     /**
      * increment the depth counter
      */
-    public function incAutoloadDepth() {
+    public function incAutoloadDepth()
+    {
         return $this->autoload_depth++;
     }
     
     /**
      * decrement the depth counter
      */
-    public function decAutoloadDepth() {
+    public function decAutoloadDepth()
+    {
         return --$this->autoload_depth;
     }
 }

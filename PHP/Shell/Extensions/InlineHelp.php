@@ -3,13 +3,20 @@
 require_once "PHP/Shell/Extensions.php";
 require_once "PHP/Shell/Extensions/Prototypes.php";
 
-class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension {
-    public function register() {
+class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension
+{
+    public function register()
+    {
         $cmd = PHP_Shell_Commands::getInstance();
 
-        $cmd->registerCommand('#^\? #', $this, 'cmdHelp', '? <var>', 
+        $cmd->registerCommand(
+            '#^\? #',
+            $this,
+            'cmdHelp',
+            '? <var>', 
             'show the DocComment a Class, Method or Function'.PHP_EOL.
-            '    e.g.: ? fopen(), ? PHP_Shell, ? $__shell');
+            '    e.g.: ? fopen(), ? PHP_Shell, ? $__shell'
+        );
     }
 
     /**
@@ -29,9 +36,12 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension {
      * The license of the PHP_Shell class
      * ? license
      *
+     * @param string $l command line
+     *
      * @return string the help text
      */
-    public function cmdHelp($l) {
+    public function cmdHelp($l)
+    {
         if ("? " == substr($l, 0, strlen("? "))) {
             $str = substr($l, 2);
 
@@ -45,7 +55,8 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension {
 
                 if (false !== ($proto = PHP_ShellPrototypes::getInstance()->get($class.'::'.$method))) {
 
-                    $cmd = sprintf("/**\n* %s\n\n* @params %s\n* @return %s\n*/\n",
+                    $cmd = sprintf(
+                        "/**\n* %s\n\n* @params %s\n* @return %s\n*/\n",
                         $proto['description'],
                         $proto['params'],
                         $proto['return']
@@ -114,7 +125,8 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension {
                 $func = $a[1];
 
                 if (false !== ($proto = PHP_ShellPrototypes::getInstance()->get($func))) {
-                    $cmd = sprintf("/**\n* %s\n*\n* @params %s\n* @return %s\n*/\n",
+                    $cmd = sprintf(
+                        "/**\n* %s\n*\n* @params %s\n* @return %s\n*/\n",
                         $proto['description'],
                         $proto['params'],
                         $proto['return']

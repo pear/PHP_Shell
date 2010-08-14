@@ -1,15 +1,22 @@
 <?php
 
-class PHP_Shell_Extensions_LoadScript implements PHP_Shell_Extension {
-    public function register() {
+class PHP_Shell_Extensions_LoadScript implements PHP_Shell_Extension
+{
+    public function register()
+    {
         $cmd = PHP_Shell_Commands::getInstance();
 
-        $cmd->registerCommand('#^r #', $this, 'cmdLoadScript', 'r <filename>', 
-            'load a php-script and execute each line');
-
+        $cmd->registerCommand(
+            '#^r #',
+            $this,
+            'cmdLoadScript',
+            'r <filename>', 
+            'load a php-script and execute each line'
+        );
     }
 
-    public function cmdLoadScript($l) {
+    public function cmdLoadScript($l)
+    {
         $l = substr($l, 2);
 
         if (file_exists($l)) {
@@ -20,7 +27,9 @@ class PHP_Shell_Extensions_LoadScript implements PHP_Shell_Extension {
             foreach ($content as $line) {
                 $line = chop($line);
 
-                if (preg_match('#^<\?php#', $line)) continue;
+                if (preg_match('#^<\?php#', $line)) {
+                    continue;
+                }
 
                 $source[] = $line;
             }

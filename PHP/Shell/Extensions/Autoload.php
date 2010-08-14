@@ -13,7 +13,8 @@
 * autoload can't be disabled
 */
     
-class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
+class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension
+{
     /**
      * does the use want to use the internal autoload ? 
      *
@@ -21,7 +22,8 @@ class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
      */
     protected $autoload = false;
 
-    public function register() {
+    public function register()
+    {
         $opt = PHP_Shell_Options::getInstance();
 
         $opt->registerOption("autoload", $this, "optSetAutoload");
@@ -34,7 +36,8 @@ class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
      * - the $value is ignored and doesn't have to be set
      * - if __autoload() is defined, the set fails
      */
-    public function optSetAutoload($key, $value) {
+    public function optSetAutoload($key, $value)
+    {
         if ($this->autoload) {
             print('autload is already enabled');
             return;
@@ -53,7 +56,8 @@ class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension {
      *
      * @return bool true if __autoload() should be set by the external wrapper
      */
-    public function isAutoloadEnabled() {
+    public function isAutoloadEnabled()
+    {
         return $this->autoload;
     }
 }

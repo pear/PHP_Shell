@@ -1,8 +1,9 @@
 <?php
 
-class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
+class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension
+{
     static protected $instance;
-    # shell colours
+    // shell colours
     const C_RESET = "\033[0m";
 
     const C_BLACK = "\033[0;30m";
@@ -39,7 +40,8 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
      */
     protected $colour_scheme;
 
-    public function register() {
+    public function register()
+    {
         $opt = PHP_Shell_Options::getInstance();
 
         $opt->registerOption("background", $this, "optSetBackground");
@@ -48,26 +50,32 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
         $this->registerColourScheme(
             "plain", array( 
                 "default"   => "", "value"     => "",
-                "exception" => "", "reset"     => ""));
+                "exception" => "", "reset"     => ""
+            )
+        );
 
         $this->registerColourScheme(
             "dark", array( 
                 "default"   => self::C_YELLOW, 
                 "value"     => self::C_WHITE,
-                "exception" => self::C_PURPLE));
+                "exception" => self::C_PURPLE
+            )
+        );
 
         $this->registerColourScheme(
             "light", array( 
                 "default"   => self::C_BLACK, 
                 "value"     => self::C_BLUE,
-                "exception" => self::C_RED));
-
+                "exception" => self::C_RED
+            )
+        );
     }
 
     /**
      * background colours
      */
-    public function optSetBackground($key, $value) {
+    public function optSetBackground($key, $value)
+    {
         if (is_null($value)) {
             print(':set '.$key.' needs a colour-scheme, e.g. :set '.$key.'=dark');
             return;
@@ -82,9 +90,11 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
      * get a colour for the shell
      *
      * @param string $type one of (value|exception|reset|default)
+     *
      * @return string a colour string or a empty string
      */
-    public function getColour($type) {
+    public function getColour($type)
+    {
         return isset($this->colour[$type]) ? $this->colour[$type] : '';
     }
 
@@ -92,10 +102,14 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
      * apply a colour scheme to the current shell
      *
      * @param string $scheme name of the scheme
+     *
      * @return false if colourscheme is not known, otherwise true
      */
-    public function applyColourScheme($scheme) {
-        if (!isset($this->colour_scheme[$scheme])) return false;
+    public function applyColourScheme($scheme)
+    {
+        if (!isset($this->colour_scheme[$scheme])) {
+            return false;
+        }
 
         $this->colour = $this->colour_scheme[$scheme];
 
@@ -105,14 +119,19 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension {
     /**
      * registers a colour scheme
      *
-     * @param string $scheme name of the colour scheme
-     * @param array a array of colours
+     * @param string $scheme  name of the colour scheme
+     * @param array  $colours a array of colours
      */
-    public function registerColourScheme($scheme, $colours) {
-        if (!is_array($colours)) return;
+    public function registerColourScheme($scheme, $colours)
+    {
+        if (!is_array($colours)) {
+            return;
+        }
 
         /* set a reset colour if it is not supplied from the outside */
-        if (!isset($colours["reset"])) $colours["reset"] = self::C_RESET;
+        if (!isset($colours["reset"])) {
+            $colours["reset"] = self::C_RESET; 
+        }
 
         $this->colour_scheme[$scheme] = $colours;
     }
