@@ -412,7 +412,7 @@ class ShellTest extends PHPUnit_Framework_TestCase
     public function testObjectArray()
     {
         $tests = array(
-            'class obj_array { function params($p1, $p2) { } }',
+            'class obj_array { static function params($p1, $p2) { } }',
             '$c = new ReflectionClass("obj_array")',
             '$m = $c->getMethods()',
             '$m[0]->getParameters()'
