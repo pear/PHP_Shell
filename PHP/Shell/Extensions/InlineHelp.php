@@ -1,10 +1,40 @@
 <?php
+/**
+ * InlineHelp.php InlineHelp Extension
+ *
+ * PHP version 5
+ *
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 
 require_once "PHP/Shell/Extensions.php";
 require_once "PHP/Shell/Extensions/Prototypes.php";
 
+/**
+ * PHP_Shell_Extensions_InlineHelp
+ * 
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension
 {
+    /**
+     * register a extension
+     * 
+     * @access public
+     * @return void
+     */
     public function register()
     {
         $cmd = PHP_Shell_Commands::getInstance();
@@ -22,7 +52,9 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension
     /**
      * handle the '?' commands
      *
-     * With the help of the Reflection Class we extract the DocComments and display them
+     * With the help of the Reflection Class we extract the DocComments and
+     * display them
+     *
      * For internal Functions we extract the prototype from the php source.
      *
      * ? Class::method()
@@ -47,7 +79,7 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension
 
             $cmd = '';
             
-            if (preg_match('#^([A-Za-z0-9_]+)::([a-zA-Z0-9_]+)\(\s*\)\s*#', $str, $a)) {
+            if ( preg_match('#^([A-Za-z0-9_]+)::([a-zA-Z0-9_]+)\(\s*\)\s*#', $str, $a)) {
                 /* ? Class::method() */
 
                 $class = $a[1];

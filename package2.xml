@@ -59,7 +59,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <file baseinstalldir="" name="PHP/Shell/Extensions/Prototypes.php" role="php" />
    <file baseinstalldir="" name="PHP/Shell/Extensions/LoadScript.php" role="php" />
    <file baseinstalldir="" name="examples/php-shell-cmd.php" role="doc" />
-   <file baseinstalldir="" name="ShellTests.php" role="test" />
+   <file baseinstalldir="" name="tests/ShellTest.php" role="test" />
    <file baseinstalldir="" name="README" role="doc" />
   </dir> <!-- / -->
  </contents>

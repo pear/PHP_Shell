@@ -1,30 +1,9 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
-/*
-(c) 2006 Jan Kneschke <jan@kneschke.de>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
 /**
 * A interactive PHP Shell
+*
+* PHP version 5
 *
 * The more I work with other languages like python and ruby I like their way how
 * they work on problems. While PHP is very forgiving on errors, it is weak on the
@@ -71,8 +50,39 @@ SOFTWARE.
 * - http://www.hping.org/phpinteractive/
 * - the embedded interactive php-shell: $ php -a
 *
-* @package PHP
+* @category  Extension
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   SVN: $id$
+* @link      http://pear.php.net/package/PHP_Shell
 */
+
+/*
+(c) 2006 Jan Kneschke <jan@kneschke.de>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+require_once "PHP/Shell/Commands.php";
+require_once "PHP/Shell/Options.php"; /* for the tab-complete */
 
 /**
 * PHP_Shell
@@ -86,12 +96,14 @@ SOFTWARE.
 * - PHP_Shell_Options
 * - PHP_Shell_Extensions
 *
-* @package PHP
+* @category  Extension
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   Release: $id$
+* @link      http://pear.php.net/package/PHP_Shell
 */
-
-require_once "PHP/Shell/Commands.php";
-require_once "PHP/Shell/Options.php"; /* for the tab-complete */
-
 class PHP_Shell
 {
     /**
@@ -138,9 +150,27 @@ class PHP_Shell
 
         $cmd = PHP_Shell_Commands::getInstance();
 
-        $cmd->registerCommand('#^quit$#', $this, 'cmdQuit', 'quit', 'leaves the shell');
-        $cmd->registerCommand('#^\?$#', $this, 'cmdHelp', '?', 'show this help');
-        $cmd->registerCommand('#^\?\s+license$#', $this, 'cmdLicense', '? license', 'show license of the shell');
+        $cmd->registerCommand(
+            '#^quit$#',
+            $this,
+            'cmdQuit',
+            'quit',
+            'leaves the shell'
+        );
+        $cmd->registerCommand(
+            '#^\?$#',
+            $this,
+            'cmdHelp',
+            '?',
+            'show this help'
+        );
+        $cmd->registerCommand(
+            '#^\?\s+license$#',
+            $this,
+            'cmdLicense',
+            '? license',
+            'show license of the shell'
+        );
     }
 
 
@@ -151,7 +181,8 @@ class PHP_Shell
     * - fetch fatal errors before they come up
     * - know about where we have to wait for closing braces
     *
-    * @return int 0 if a executable statement is in the code-buffer, non-zero otherwise
+    * @return int 0 if a executable statement is in the code-buffer, non-zero
+    *             otherwise
     */
     public function parse()
     {
@@ -350,12 +381,22 @@ class PHP_Shell
                             $objname = $ts[$last - 3]['value'];
 
                             if (!isset($GLOBALS[ltrim($objname, '$')])) {
-                                throw new Exception(sprintf('Variable \'%s\' is not set', $objname));
+                                throw new Exception(
+                                    sprintf(
+                                        'Variable \'%s\' is not set',
+                                        $objname
+                                    )
+                                );
                             }
                             $object = $GLOBALS[ltrim($objname, '$')];
 
                             if (!is_object($object)) {
-                                throw new Exception(sprintf('Variable \'%s\' is not a class', $objname));
+                                throw new Exception(
+                                    sprintf(
+                                        'Variable \'%s\' is not a class',
+                                        $objname
+                                    )
+                                );
                             }
 
                             $method = $ts[$last - 1]['value'];
@@ -365,7 +406,8 @@ class PHP_Shell
                             if (!is_callable(array($object, $method))) {
                                 throw new Exception(
                                     sprintf(
-                                        "Variable %s (Class '%s') doesn't have a method named '%s'",
+                                        "Variable %s (Class '%s') doesn't have ".
+                                        "a method named '%s'",
                                         $objname,
                                         get_class($object),
                                         $method
@@ -386,18 +428,32 @@ class PHP_Shell
                         $objname = $ts[$last - 3]['value'];
 
                         if (!isset($GLOBALS[ltrim($objname, '$')])) {
-                            throw new Exception(sprintf('Variable \'%s\' is not set', $objname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not set', $objname
+                                )
+                            );
                         }
                         $object = $GLOBALS[ltrim($objname, '$')];
 
                         if (!is_object($object)) {
-                            throw new Exception(sprintf('Variable \'%s\' is not a class', $objname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not a class',
+                                    $objname
+                                )
+                            );
                         }
 
                         $methodname = $ts[$last - 1]['value'];
 
                         if (!isset($GLOBALS[ltrim($methodname, '$')])) {
-                            throw new Exception(sprintf('Variable \'%s\' is not set', $methodname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not set',
+                                    $methodname
+                                )
+                            );
                         }
                         $method = $GLOBALS[ltrim($methodname, '$')];
 
@@ -406,7 +462,8 @@ class PHP_Shell
                         if (!is_callable(array($object, $method))) {
                             throw new Exception(
                                 sprintf(
-                                    "Variable %s (Class '%s') doesn't have a method named '%s'",
+                                    "Variable %s (Class '%s') doesn't have a ".
+                                    "method named '%s'",
                                     $objname,
                                     get_class($object),
                                     $method
@@ -429,24 +486,45 @@ class PHP_Shell
                         $objname = $ts[$last - 6]['value'];
 
                         if (!isset($GLOBALS[ltrim($objname, '$')])) {
-                            throw new Exception(sprintf('Variable \'%s\' is not set', $objname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not set',
+                                    $objname
+                                )
+                            );
                         }
                         $array = $GLOBALS[ltrim($objname, '$')];
 
                         if (!is_array($array)) {
-                            throw new Exception(sprintf('Variable \'%s\' is not a array', $objname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not a array',
+                                    $objname
+                                )
+                            );
                         }
 
                         $andx = $ts[$last - 4]['value'];
 
                         if (!isset($array[$andx])) {
-                            throw new Exception(sprintf('%s[\'%s\'] is not set', $objname, $andx));
+                            throw new Exception(
+                                sprintf(
+                                    '%s[\'%s\'] is not set',
+                                    $objname,
+                                    $andx
+                                )
+                            );
                         }
 
                         $object = $array[$andx];
 
                         if (!is_object($object)) {
-                            throw new Exception(sprintf('Variable \'%s\' is not a class', $objname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not a class',
+                                    $objname
+                                )
+                            );
                         }
 
                         $method = $ts[$last - 1]['value'];
@@ -456,7 +534,8 @@ class PHP_Shell
                         if (!is_callable(array($object, $method))) {
                             throw new Exception(
                                 sprintf(
-                                    "Variable %s (Class '%s') doesn't have a method named '%s'",
+                                    "Variable %s (Class '%s') doesn't have a ".
+                                    "method named '%s'",
                                     $objname,
                                     get_class($object),
                                     $method
@@ -477,7 +556,12 @@ class PHP_Shell
                         $classname = $ts[$last - 3]['value'];
 
                         if (!class_exists($classname)) {
-                            throw new Exception(sprintf('Class \'%s\' doesn\'t exist', $classname));
+                            throw new Exception(
+                                sprintf(
+                                    'Class \'%s\' doesn\'t exist',
+                                    $classname
+                                )
+                            );
                         }
 
                         $method = $ts[$last - 1]['value'];
@@ -485,7 +569,8 @@ class PHP_Shell
                         if (!in_array($method, get_class_methods($classname))) {
                             throw new Exception(
                                 sprintf(
-                                    "Class '%s' doesn't have a method named '%s'",
+                                    "Class '%s' doesn't have a method named ".
+                                    "'%s'",
                                     $classname,
                                     $method
                                 )
@@ -504,20 +589,31 @@ class PHP_Shell
                         $classname = $ts[$last - 3]['value'];
 
                         if (!class_exists($classname)) {
-                            throw new Exception(sprintf('Class \'%s\' doesn\'t exist', $classname));
+                            throw new Exception(
+                                sprintf(
+                                    'Class \'%s\' doesn\'t exist',
+                                    $classname
+                                )
+                            );
                         }
 
                         $methodname = $ts[$last - 1]['value'];
 
                         if (!isset($GLOBALS[ltrim($methodname, '$')])) {
-                            throw new Exception(sprintf('Variable \'%s\' is not set', $methodname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not set',
+                                    $methodname
+                                )
+                            );
                         }
                         $method = $GLOBALS[ltrim($methodname, '$')];
 
                         if (!in_array($method, get_class_methods($classname))) {
                             throw new Exception(
                                 sprintf(
-                                    "Class '%s' doesn't have a method named '%s'",
+                                    "Class '%s' doesn't have a method named ".
+                                    "'%s'",
                                     $classname,
                                     $method
                                 )
@@ -537,17 +633,33 @@ class PHP_Shell
                         $classname = $ts[$last - 1]['value'];
 
                         if (!class_exists($classname)) {
-                            throw new Exception(sprintf('Class \'%s\' doesn\'t exist', $classname));
+                            throw new Exception(
+                                sprintf(
+                                    'Class \'%s\' doesn\'t exist',
+                                    $classname
+                                )
+                            );
                         }
 
                         $r = new ReflectionClass($classname);
 
                         if ($r->isAbstract()) {
-                            throw new Exception(sprintf("Can't instantiate abstract Class '%s'", $classname));
+                            throw new Exception(
+                                sprintf(
+                                    "Can't instantiate abstract Class '%s'",
+                                    $classname
+                                )
+                            );
                         }
 
                         if (!$r->isInstantiable()) {
-                            throw new Exception(sprintf('Class \'%s\' can\'t be instantiated. Is the class abstract ?', $classname));
+                            throw new Exception(
+                                sprintf(
+                                    'Class \'%s\' can\'t be instantiated. Is '.
+                                    'the class abstract ?',
+                                    $classname
+                                )
+                            );
                         }
 
                     } else if ($last >= 2
@@ -563,7 +675,12 @@ class PHP_Shell
                         $func = $ts[$last - 1]['value'];
 
                         if (function_exists($func)) {
-                            throw new Exception(sprintf('Function \'%s\' is already defined', $func));
+                            throw new Exception(
+                                sprintf(
+                                    'Function \'%s\' is already defined',
+                                    $func
+                                )
+                            );
                         }
                     } else if ($last >= 4
                         && $ts[0]['token'] == T_CLASS
@@ -580,7 +697,13 @@ class PHP_Shell
                         $classname = $ts[1]['value'];
 
                         if (isset($methods[$func])) {
-                            throw new Exception(sprintf("Can't redeclare method '%s' in Class '%s'", $func, $classname));
+                            throw new Exception(
+                                sprintf(
+                                    "Can't redeclare method '%s' in Class '%s'",
+                                    $func,
+                                    $classname
+                                )
+                            );
                         }
 
                         $methods[$func] = 1;
@@ -595,7 +718,12 @@ class PHP_Shell
                         $funcname = $ts[$last - 1]['value'];
 
                         if (!function_exists($funcname)) {
-                            throw new Exception(sprintf("Function %s() doesn't exist", $funcname));
+                            throw new Exception(
+                                sprintf(
+                                    "Function %s() doesn't exist",
+                                    $funcname
+                                )
+                            );
                         }
                     } else if ($last >= 1
                         && $ts[0]['token'] != T_CLASS /* if we are not in a class definition */
@@ -606,12 +734,22 @@ class PHP_Shell
                         $funcname = $ts[$last - 1]['value'];
 
                         if (!isset($GLOBALS[ltrim($funcname, '$')])) {
-                            throw new Exception(sprintf('Variable \'%s\' is not set', $funcname));
+                            throw new Exception(
+                                sprintf(
+                                    'Variable \'%s\' is not set',
+                                    $funcname
+                                )
+                            );
                         }
                         $func = $GLOBALS[ltrim($funcname, '$')];
 
                         if (!function_exists($func)) {
-                            throw new Exception(sprintf("Function %s() doesn't exist", $func));
+                            throw new Exception(
+                                sprintf(
+                                    "Function %s() doesn't exist",
+                                    $func
+                                )
+                            );
                         }
 
                     }
@@ -631,7 +769,12 @@ class PHP_Shell
                         $classname = $ts[$last - 1]['value'];
 
                         if (class_exists($classname, false)) {
-                            throw new Exception(sprintf("Class '%s' can't be redeclared", $classname));
+                            throw new Exception(
+                                sprintf(
+                                    "Class '%s' can't be redeclared",
+                                    $classname
+                                )
+                            );
                         }
                     } else if ($last >= 4
                         && $ts[$last - 1]['token'] == T_STRING

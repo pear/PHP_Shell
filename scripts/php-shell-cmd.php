@@ -1,10 +1,8 @@
 <?php
-@ob_end_clean();
-error_reporting(E_ALL);
-set_time_limit(0);
-
 /**
 * the wrapper around the PHP_Shell class
+*
+* PHP Version 5
 *
 * - load extensions
 * - set default error-handler
@@ -21,7 +19,19 @@ set_time_limit(0);
 *   can't be read, but overwrites existing vars with this name
 * - $__shell_exception is the catched Exception on Warnings, Notices, ..
 *   can't be read, but overwrites existing vars with this name
+*
+* @category  Script
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   SVN: $id$
+* @link      http://pear.php.net/package/PHP_Shell
 */
+
+@ob_end_clean();
+error_reporting(E_ALL);
+set_time_limit(0);
 
 require_once "PHP/Shell.php";
 require_once "PHP/Shell/Extensions/Autoload.php";
@@ -47,6 +57,8 @@ require_once "PHP/Shell/Extensions/Echo.php";
 * @param string   $errfile Filename where the error was raised
 * @param interger $errline Line-Number in the File
 * @param mixed    $errctx  ...
+*
+* @return void
 */
 function PHP_Shell_defaultErrorHandler($errno, $errstr, $errfile, $errline, $errctx)
 {
@@ -104,8 +116,9 @@ while ($__shell->input()) {
         * this file
         * 
         * @param string $classname name of the class
+        *
+        * @return void
         */
-
         function __autoload($classname)
         {
             global $__shell_exts;
@@ -132,7 +145,10 @@ while ($__shell->input()) {
                 print $__shell_exts->colour->getColour("value");
 
                 if (function_exists("__shell_print_var")) {
-                    __shell_print_var($__shell_retval, $__shell_exts->verboseprint->isVerbose());
+                    __shell_print_var(
+                        $__shell_retval,
+                        $__shell_exts->verboseprint->isVerbose()
+                    );
                 } else {
                     var_export($__shell_retval);
                 }
@@ -143,7 +159,11 @@ while ($__shell->input()) {
         }
     } catch(Exception $__shell_exception) {
         print $__shell_exts->colour->getColour("exception");
-        printf('%s (code: %d) got thrown'.PHP_EOL, get_class($__shell_exception), $__shell_exception->getCode());
+        printf(
+            '%s (code: %d) got thrown'.PHP_EOL,
+            get_class($__shell_exception),
+            $__shell_exception->getCode()
+        );
         print $__shell_exception;
         
         $__shell->resetCode();

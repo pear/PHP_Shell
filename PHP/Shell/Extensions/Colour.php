@@ -1,5 +1,29 @@
 <?php
+/**
+ * Colour.php Colour Extension
+ *
+ * PHP version 5
+ *
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 
+/**
+ * PHP_Shell_Extensions_Colour 
+ * 
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension
 {
     static protected $instance;
@@ -40,6 +64,12 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension
      */
     protected $colour_scheme;
 
+    /**
+     * register a extension
+     * 
+     * @access public
+     * @return void
+     */
     public function register()
     {
         $opt = PHP_Shell_Options::getInstance();
@@ -73,6 +103,11 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension
 
     /**
      * background colours
+     *
+     * @param string $key   the config name
+     * @param string $value the value to set
+     *
+     * @return void
      */
     public function optSetBackground($key, $value)
     {
@@ -121,6 +156,8 @@ class PHP_Shell_Extensions_Colour implements PHP_Shell_Extension
      *
      * @param string $scheme  name of the colour scheme
      * @param array  $colours a array of colours
+     *
+     * @return void
      */
     public function registerColourScheme($scheme, $colours)
     {

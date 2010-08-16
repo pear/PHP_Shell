@@ -2,6 +2,8 @@
 /**
 * Autoload debugging
 *
+* PHP Version 5
+*
 * The internal __autoload() function of the shell-wrapper has two hooks.
 * The first is called before the include is done, the second afterwards.
 *
@@ -13,7 +15,27 @@
 *
 * the depth functions track the recursive depth of the includes. The
 * wrapper uses it to print the dots at the beginning of the line.
+*
+* @category  Extension
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   SVN: $id$
+* @link      http://pear.php.net/package/PHP_Shell
 */
+
+/**
+ * PHP_Shell_Extensions_AutoloadDebug
+ * 
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
 {
     /**
@@ -30,6 +52,12 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
      */
     protected $autoload_depth = 0;
 
+    /**
+     * register a extension
+     * 
+     * @access public
+     * @return void
+     */
     public function register()
     {
         $opt = PHP_Shell_Options::getInstance();
@@ -39,7 +67,10 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
     /**
      * handle the autoloaddebug flag
      *
-     * @param string  
+     * @param string $key   the config name
+     * @param string $value the value to set
+     *
+     * @return void 
      */
     public function optSetAutoloadDebug($key, $value)
     {
@@ -55,7 +86,11 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
             $this->autoload_debug = false;
             break;
         default:
-            printf(":set %s failed, unknown value. Use :set %s = (on|off)", $key, $key);
+            printf(
+                ":set %s failed, unknown value. Use :set %s = (on|off)",
+                $key,
+                $key
+            );
             return;
         }
 
@@ -73,6 +108,8 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
 
     /**
      * increment the depth counter
+     *
+     * @return int
      */
     public function incAutoloadDepth()
     {
@@ -81,6 +118,8 @@ class PHP_Shell_Extensions_AutoloadDebug implements PHP_Shell_Extension
     
     /**
      * decrement the depth counter
+     *
+     * @return int
      */
     public function decAutoloadDepth()
     {

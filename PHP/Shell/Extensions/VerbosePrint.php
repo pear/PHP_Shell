@@ -1,4 +1,29 @@
 <?php
+/**
+ * VerbosePrint.php VerbosePrint Extension
+ *
+ * PHP version 5
+ *
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
+
+/**
+ * PHP_Shell_Extensions_VerbosePrint 
+ * 
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension
 {
     protected $opt_verbose = false;
@@ -12,7 +37,13 @@ class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension
     public function register()
     {
         $cmd = PHP_Shell_Commands::getInstance();
-        $cmd->registerCommand('#^p #', $this, 'cmdPrint', 'p <var>', 'print the variable verbosly');
+        $cmd->registerCommand(
+            '#^p #',
+            $this,
+            'cmdPrint',
+            'p <var>',
+            'print the variable verbosly'
+        );
 
         $opt = PHP_Shell_Options::getInstance();
         $opt->registerOption('verboseprint', $this, 'optSetVerbose');

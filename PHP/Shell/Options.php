@@ -1,9 +1,38 @@
 <?php
+/**
+* PHP_Shell_Options Extension implementation
+*
+* PHP Version 5
+*
+* This extension is a basic extension that provide the funcionality of set
+* options to other extensions or to the whole PHP_Shell.
+*
+* @category  Extension
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   SVN: $id$
+* @link      http://pear.php.net/package/PHP_Shell
+*
+*/
 require_once "PHP/Shell/Extensions.php"; /* for the PHP_Shell_Interface */
   
 /**
- *
- */
+* PHP_Shell_Options Class
+*
+* This class is a basic extension that provide the funcionality of set
+* options to other extensions or to the whole PHP_Shell.
+*
+* @category  Extension
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   Release: $id$
+* @link      http://pear.php.net/package/PHP_Shell
+*
+*/
 class PHP_Shell_Options implements PHP_Shell_Extension
 {
     /**

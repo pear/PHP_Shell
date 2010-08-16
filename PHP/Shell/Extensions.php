@@ -1,4 +1,24 @@
 <?php
+/**
+* Extension definition file
+*
+* PHP Version 5
+*
+* Extension can hook into the execution of the shell
+*
+* examples:
+* - execution time for parsing and execute
+* - colours for the output
+* - inline help
+*
+* @category  Library
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   SVN: $id$
+* @link      http://pear.php.net/package/PHP_Shell
+*/
 
 /**
 * the interface for all shell extensions 
@@ -10,17 +30,42 @@
 * - colours for the output
 * - inline help
 *
+* @category  Library
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   Release: $id$
+* @link      http://pear.php.net/package/PHP_Shell
 *  
 */
 interface PHP_Shell_Extension
 {
+    /**
+     * Register a extension
+     * 
+     * @access public
+     * @return void
+     */
     public function register();
 }
 
 /**
 * storage class for Shell Extensions
 *
-* 
+* examples:
+* - execution time for parsing and execute
+* - colours for the output
+* - inline help
+*
+* @category  Library
+* @package   PHP_Shell
+* @author    Jan Kneschke <jan@kneschke.de>
+* @copyright 2006 Jan Kneschke
+* @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+* @version   Release: $id$
+* @link      http://pear.php.net/package/PHP_Shell
+*
 */
 class PHP_Shell_Extensions
 {

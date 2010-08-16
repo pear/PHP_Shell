@@ -1,4 +1,35 @@
 <?php
+/**
+ * Echo.php Echo Extension
+ * handles the options to enable and disable the sentence's return echo
+ *
+ * PHP Version 5
+ *
+ * :set echo = true|false
+ *
+ * echo can't be disabled
+ *
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jesús Espino García <jespinog@gmail.com> 
+ * @copyright 2010 Jesús Espino García
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
+
+/**
+ * PHP_Shell_Extensions_Echo 
+ * 
+ * @uses      PHP_Shell_Extension
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jesús Espino García <jespinog@gmail.com> 
+ * @copyright 2010 Jesús Espino García
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class PHP_Shell_Extensions_Echo implements PHP_Shell_Extension
 {
     protected $opt_echo = true;

@@ -1,7 +1,32 @@
 <?php
+/**
+ * Prototypes.php Shell Prototypes for autocompletion
+ *
+ * PHP version 5
+ *
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
+
+/**
+ * PHP_ShellPrototypes 
+ * 
+ * @category  Extension
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class PHP_ShellPrototypes
 {
-    static private $instance = null;
+    static private $_instance = null;
 
     protected $prototype = array (
         'XMLReader::close' => array (
@@ -13706,6 +13731,14 @@ class PHP_ShellPrototypes
         ),
     );
 
+    /**
+     * get return the prototype info of a a function or object
+     * 
+     * @param mixed $k prototype string
+     *
+     * @access public
+     * @return array|false
+     */
     public function get($k)
     {
         if (isset($this->prototype[$k])) {
@@ -13715,12 +13748,19 @@ class PHP_ShellPrototypes
         }
     }
 
+    /**
+     * getInstance return the instance of the class (Singleton pattern)
+     * 
+     * @static
+     * @access public
+     * @return void
+     */
     static function getInstance()
     {
-        if (is_null(self::$instance)) {
+        if (is_null(self::$_instance)) {
             $class = __CLASS__;
-            self::$instance = new $class();
+            self::$_instance = new $class();
         }
-        return self::$instance;
+        return self::$_instance;
     }
 }
