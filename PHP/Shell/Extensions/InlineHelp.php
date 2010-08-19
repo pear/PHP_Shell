@@ -127,7 +127,7 @@ class PHP_Shell_Extensions_InlineHelp implements PHP_Shell_Extension
                 /* ? $obj->property */
                 if (isset($GLOBALS[$a[1]]) && is_object($GLOBALS[$a[1]])) {
                     $class = get_class($GLOBALS[$a[1]]);
-                    $method = $a[2];
+                    $property = $a[2];
                     
                     $c = new ReflectionClass($class);
 

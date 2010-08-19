@@ -895,7 +895,35 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testGetVersion 
+     * 
+     * @access public
+     * @return void
+     */
+    public function testGetVersion()
+    {
+        $version = $this->shell->getVersion();
+        $this->assertEquals('0.3.1',$version);
+    }
+
+    /**
+     * testHasReadline 
+     * 
+     * @access public
+     * @return void
+     */
+    public function testHasReadline()
+    {
+        $have_readline = $this->shell->hasReadline();
+        $this->assertEquals(function_exists('readline'),$have_readline);
+    }
+
+    public function testReadLine()
+    {
+        // ToDo: Try to create a better test for readline function
+        $all_completions = PHP_Shell_readlineComplete("",0);
+        $this->assertEquals(count($all_completions), 3281);
+    }
 
 }
-
-

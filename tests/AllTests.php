@@ -21,6 +21,9 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 require_once 'PHPUnit/Framework/TestSuite.php';
 
 require_once 'ShellTest.php';
+require_once 'ExtensionsTest.php';
+require_once 'Extensions/EchoTest.php';
+require_once 'Extensions/InlineHelpTest.php';
 
 /**
  * PHP_Shell_AllTests
@@ -58,6 +61,9 @@ class PHP_Shell_AllTests
     {
         $suite = new PHPUnit_Framework_TestSuite( "Shell Tests");
         $suite->addTestSuite('ShellTest');
+        $suite->addTestSuite('ExtensionsTest');
+        $suite->addTestSuite('EchoTest');
+        $suite->addTestSuite('InlineHelpTest');
         return $suite;
     }
 

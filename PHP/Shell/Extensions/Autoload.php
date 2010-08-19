@@ -72,7 +72,7 @@ class PHP_Shell_Extensions_Autoload implements PHP_Shell_Extension
     public function optSetAutoload($key, $value)
     {
         if ($this->autoload) {
-            print('autload is already enabled');
+            print('autoload is already enabled');
             return;
         }
 
