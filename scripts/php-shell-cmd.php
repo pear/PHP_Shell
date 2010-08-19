@@ -105,7 +105,9 @@ unset($f);
 
 print $__shell_exts->colour->getColour("default");
 while ($__shell->input()) {
-    if ($__shell_exts->autoload->isAutoloadEnabled() && !function_exists('__autoload')) {
+    if ($__shell_exts->autoload->isAutoloadEnabled()
+        && !function_exists('__autoload')
+    ) {
         /**
         * default autoloader
         *
@@ -124,11 +126,17 @@ while ($__shell->input()) {
             global $__shell_exts;
 
             if ($__shell_exts->autoload_debug->isAutoloadDebug()) {
-                print str_repeat(".", $__shell_exts->autoload_debug->incAutoloadDepth())." -> autoloading $classname".PHP_EOL;
+                print str_repeat(
+                    ".",
+                    $__shell_exts->autoload_debug->incAutoloadDepth()
+                )." -> autoloading $classname".PHP_EOL;
             }
             include_once str_replace('_', '/', $classname).'.php';
             if ($__shell_exts->autoload_debug->isAutoloadDebug()) {
-                print str_repeat(".", $__shell_exts->autoload_debug->decAutoloadDepth())." <- autoloading $classname".PHP_EOL;
+                print str_repeat(
+                    ".",
+                    $__shell_exts->autoload_debug->decAutoloadDepth()
+                )." <- autoloading $classname".PHP_EOL;
             }
         }
     }

@@ -1,35 +1,79 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+/**
+ * ShellTest.php 
+ *
+ * PHP Version 5
+ * 
+ * @category  Test
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
+
 
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'PHP/Shell.php';
 
+/**
+ * ShellTest 
+ * 
+ * @uses      PHPUnit_Framework_TestCase
+ * @category  Test
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   Release: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 class ShellTest extends PHPUnit_Framework_TestCase
 {
-    private $vars;
+    private $_vars;
 
+    /**
+     * setUp 
+     * 
+     * @access public
+     * @return void
+     */
     public function setUp()
     {
         /* create a fresh shell object */
 
         $this->shell = new PHP_Shell();
 
-        $this->vars = array();
+        $this->_vars = array();
     }
 
+    /**
+     * tearDown 
+     * 
+     * @access public
+     * @return void
+     */
     public function tearDown()
     {
-        foreach ($this->vars as $k => $v) {
+        foreach ($this->_vars as $k => $v) {
             unset($GLOBALS[$k]);
         }
     }
 
+    /**
+     * execute 
+     * 
+     * @access public
+     * @return void
+     */
     public function execute()
     {
         $__retval = null;
 
         // get local vars
-        foreach ($this->vars as $__k => $__v) {
+        foreach ($this->_vars as $__k => $__v) {
             ${$__k} = $GLOBALS[$__k];
         }
         unset($__k);
@@ -39,15 +83,27 @@ class ShellTest extends PHPUnit_Framework_TestCase
             $__retval = eval($this->shell->getCode()); 
 
             // export vars to global scope
-            foreach (array_diff_key(get_defined_vars(), $GLOBALS, array("__retval" => 1)) as $__k => $__v) {
+            foreach (
+                array_diff_key(
+                    get_defined_vars(),
+                    $GLOBALS,
+                    array("__retval" => 1)
+                ) as $__k => $__v
+            ) {
                 $GLOBALS[$__k] = $__v;
-                $this->vars[$__k] = $__v;
+                $this->_vars[$__k] = $__v;
             }
         }
 
         return $__retval;
     }
 
+    /**
+     * testComments 
+     * 
+     * @access public
+     * @return void
+     */
     public function testComments()
     {
         $tests = array(
@@ -65,6 +121,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testUndefVars 
+     * 
+     * @access public
+     * @return void
+     */
     public function testUndefVars()
     {
         $tests = array(
@@ -83,6 +145,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testNewClass 
+     * 
+     * @access public
+     * @return void
+     */
     public function testNewClass()
     {
         $tests = array(
@@ -95,6 +163,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testMethod 
+     * 
+     * @access public
+     * @return void
+     */
     public function testMethod()
     {
         $tests = array(
@@ -108,6 +182,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testNotExistingMethod 
+     * 
+     * @access public
+     * @return void
+     */
     public function testNotExistingMethod()
     {
         $tests = array(
@@ -127,6 +207,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testNotExistingClass 
+     * 
+     * @access public
+     * @return void
+     */
     public function testNotExistingClass()
     {
         $tests = array(
@@ -145,6 +231,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClass 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClass()
     {
         $tests = array(
@@ -159,6 +251,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClassExtends 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClassExtends()
     {
         $tests = array(
@@ -173,6 +271,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClassExtendsNotExisting 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClassExtendsNotExisting()
     {
         $tests = array(
@@ -191,6 +295,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClassDuplicate 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClassDuplicate()
     {
         $tests = array(
@@ -210,10 +320,17 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClassDuplicateMethod 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClassDuplicateMethod()
     {
         $tests = array(
-            'class d { function duplicate_method () { } function duplicate_method() {} }',
+            'class d { function duplicate_method () { } '.
+            'function duplicate_method() {} }',
             );
         foreach ($tests as $code) {
             $this->shell->resetCode();
@@ -228,6 +345,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClassConstant 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClassConstant()
     {
         $tests = array(
@@ -241,6 +364,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testClassConstantNotExisting 
+     * 
+     * @access public
+     * @return void
+     */
     public function testClassConstantNotExisting()
     {
         $tests = array(
@@ -259,6 +388,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testFunctionDuplicate 
+     * 
+     * @access public
+     * @return void
+     */
     public function testFunctionDuplicate()
     {
         $tests = array(
@@ -278,6 +413,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testFunctionDynamicNotExisting 
+     * 
+     * @access public
+     * @return void
+     */
     public function testFunctionDynamicNotExisting()
     {
         $tests = array(
@@ -297,6 +438,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testLoops 
+     * 
+     * @access public
+     * @return void
+     */
     public function testLoops()
     {
         $tests = array(
@@ -314,6 +461,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testIf 
+     * 
+     * @access public
+     * @return void
+     */
     public function testIf()
     {
         $tests = array(
@@ -327,10 +480,19 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testImplements 
+     * 
+     * @access public
+     * @return void
+     */
     public function testImplements()
     {
         $tests = array(
-            'class e implements Serializable { function serialize() { } function unserialize($a) {} }',
+            'class e implements Serializable { '.
+            'function serialize() { } '.
+            'function unserialize($a) {} '.
+            '}',
             );
         foreach ($tests as $code) {
             $this->shell->resetCode();
@@ -340,6 +502,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testInterfaceNotExists 
+     * 
+     * @access public
+     * @return void
+     */
     public function testInterfaceNotExists()
     {
         $tests = array(
@@ -358,6 +526,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testAbstractClass 
+     * 
+     * @access public
+     * @return void
+     */
     public function testAbstractClass()
     {
         $tests = array(
@@ -377,6 +551,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testStaticCall 
+     * 
+     * @access public
+     * @return void
+     */
     public function testStaticCall()
     {
         $tests = array(
@@ -391,6 +571,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testStaticCallNotExists 
+     * 
+     * @access public
+     * @return void
+     */
     public function testStaticCallNotExists()
     {
         $tests = array(
@@ -409,6 +595,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testObjectArray 
+     * 
+     * @access public
+     * @return void
+     */
     public function testObjectArray()
     {
         $tests = array(
@@ -425,6 +617,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testObjectArrayMethodNotExists 
+     * 
+     * @access public
+     * @return void
+     */
     public function testObjectArrayMethodNotExists()
     {
         $tests = array(
@@ -445,6 +643,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testVariableMethod 
+     * 
+     * @access public
+     * @return void
+     */
     public function testVariableMethod()
     {
         $tests = array(
@@ -460,6 +664,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testVariableStaticMethod 
+     * 
+     * @access public
+     * @return void
+     */
     public function testVariableStaticMethod()
     {
         $tests = array(
@@ -474,6 +684,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testVariableMethodNotExisting 
+     * 
+     * @access public
+     * @return void
+     */
     public function testVariableMethodNotExisting()
     {
         $tests = array(
@@ -494,6 +710,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testInternalMethodCall 
+     * 
+     * @access public
+     * @return void
+     */
     public function testInternalMethodCall()
     {
         $tests = array(
@@ -507,6 +729,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testSingletonClass 
+     * 
+     * @access public
+     * @return void
+     */
     public function testSingletonClass()
     {
         $tests = array(
@@ -529,6 +757,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testGetInstance 
+     * 
+     * @access public
+     * @return void
+     */
     public function testGetInstance()
     {
         $tests = array(
@@ -542,6 +776,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testArrayAccessOnObject 
+     * 
+     * @access public
+     * @return void
+     */
     public function testArrayAccessOnObject()
     {
         $tests = array(
@@ -561,6 +801,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testFunctionVars 
+     * 
+     * @access public
+     * @return void
+     */
     public function testFunctionVars()
     {
         $tests = array(
@@ -574,6 +820,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testMethodVars 
+     * 
+     * @access public
+     * @return void
+     */
     public function testMethodVars()
     {
         $tests = array(
@@ -587,6 +839,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testMethodDynamicConst 
+     * 
+     * @access public
+     * @return void
+     */
     public function testMethodDynamicConst()
     {
         $tests = array(
@@ -600,6 +858,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * testMethodDynamicFunction 
+     * 
+     * @access public
+     * @return void
+     */
     public function testMethodDynamicFunction()
     {
         $tests = array(
@@ -612,6 +876,12 @@ class ShellTest extends PHPUnit_Framework_TestCase
             $this->execute();
         }
     }
+    /**
+     * testMethodDynamicFunctionDynamic 
+     * 
+     * @access public
+     * @return void
+     */
     public function testMethodDynamicFunctionDynamic()
     {
         $tests = array(

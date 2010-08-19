@@ -1,4 +1,17 @@
 <?php
+/**
+ * php-shell-cmd.php 
+ *
+ * PHP Version 5
+ * 
+ * @category  Script
+ * @package   PHP_Shell
+ * @author    Jan Kneschke <jan@kneschke.de>
+ * @copyright 2006 Jan Kneschke
+ * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
+ * @version   SVN: $id$
+ * @link      http://pear.php.net/package/PHP_Shell
+ */
 @ob_end_clean();
 error_reporting(E_ALL);
 set_time_limit(0);
