@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PHP_Shell</name>
  <channel>pear.php.net</channel>
  <summary>a interactive PHP Shell</summary>
@@ -15,8 +12,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>jan@kneschke.de</email>
   <active>yes</active>
  </lead>
- <date>2006-07-22</date>
- <time>17:43:00</time>
+ <date>2010-08-21</date>
+ <time>14:30:00</time>
  <version>
   <release>0.3.1</release>
   <api>0.3.0</api>
@@ -27,9 +24,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
  <notes>
+  QA release.
   * added the LoadScript Extension to load and run scripts directly from the shell
-  * added more tags 
+  * added the Echo Extension to disable the echo functions return
   * fixed printing of executiong time
+  * fixed a lot of PHPCS errors
+  * improved the test coverage to 78.86%
+  * fixed bug #8554: Now classes with __call not throws exceptions when call a "undefined method".
+  * fixed bug #9556: Now curly open is a recognized token.
+  * fixed bug #14276: Now the php-shell.bat have the strings quoted
  </notes>
  <contents>
   <dir name="/">
@@ -58,10 +61,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <file baseinstalldir="" name="PHP/Shell/Extensions/ExecutionTime.php" role="php" />
    <file baseinstalldir="" name="PHP/Shell/Extensions/Prototypes.php" role="php" />
    <file baseinstalldir="" name="PHP/Shell/Extensions/LoadScript.php" role="php" />
+   <file baseinstalldir="" name="PHP/Shell/Extensions/Echo.php" role="php" />
    <file baseinstalldir="" name="examples/php-shell-cmd.php" role="doc" />
+   <file baseinstalldir="" name="tests/OptionsTest.php" role="test" />
+   <file baseinstalldir="" name="tests/ExtensionsTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/AutoloadDebugTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/AutoloadTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/ColourTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/EchoTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/ExecutionTimeTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/InlineHelpTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/LoadScriptTest.php" role="test" />
+   <file baseinstalldir="" name="tests/Extensions/VerbosePrintTest.php" role="test" />
    <file baseinstalldir="" name="tests/ShellTest.php" role="test" />
    <file baseinstalldir="" name="README" role="doc" />
-  </dir> <!-- / -->
+  </dir> 
  </contents>
  <dependencies>
   <required>
@@ -101,24 +115,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <changelog>
   <release>
    <version>
-    <release>0.3.1</release>
-    <api>0.3.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2006-05-29</date>
-   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>
-   </notes>
-  </release>
- </changelog>
-
-
- <changelog>
-  <release>
-   <version>
     <release>0.3.0</release>
     <api>0.3.0</api>
    </version>
@@ -129,6 +125,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <date>2006-05-29</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
    <notes>
+     * refactored the code
+     * fixed static::method()->method()
+     * fixed $obj[...]
+     * fixed :set autoload
+     * fixed $var in class ... { ... }
    </notes>
   </release>
 
@@ -144,7 +145,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <date>2006-05-25</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
    <notes>
-         * added :set autoload and :set background
+     * added :set autoload and :set background
 	 * added ? $obj->method()
 	 * moved shell-wrapper to php-shell-cmd.php
 	 * removed die()
