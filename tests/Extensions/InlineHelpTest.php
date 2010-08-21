@@ -10,7 +10,7 @@
  * @author    Jesús Espino <jespinog@gmail.com>
  * @copyright 2010 Jesús Espino
  * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
- * @version   SVN: $id$
+ * @version   SVN: $Id:$
  * @link      http://pear.php.net/package/PHP_Shell
  */
 
@@ -28,7 +28,7 @@ require_once "PHP/Shell/Extensions/InlineHelp.php";
  * @author    Jesús Espino <jespinog@gmail.com>
  * @copyright 2010 Jesús Espino
  * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
- * @version   Release: $id$
+ * @version   Release: @package_version@
  * @link      http://pear.php.net/package/PHP_Shell
  */
 class TestClass
@@ -74,7 +74,7 @@ function testFunction()
  * @author    Jesús Espino <jespinog@gmail.com>
  * @copyright 2010 Jesús Espino
  * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
- * @version   Release: $id$
+ * @version   Release: @package_version@
  * @link      http://pear.php.net/package/PHP_Shell
  */
 class InlineHelpTest extends PHPUnit_Framework_TestCase
@@ -130,7 +130,7 @@ class InlineHelpTest extends PHPUnit_Framework_TestCase
  * @author    Jesús Espino <jespinog@gmail.com>
  * @copyright 2010 Jesús Espino
  * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
- * @version   Release: \$id$
+ * @version   Release: @package_version@
  * @link      http://pear.php.net/package/PHP_Shell
  */'
 EOT;
@@ -196,7 +196,7 @@ EOT;
  * @author    Jesús Espino <jespinog@gmail.com>
  * @copyright 2010 Jesús Espino
  * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
- * @version   Release: \$id$
+ * @version   Release: @package_version@
  * @link      http://pear.php.net/package/PHP_Shell
  */'
 EOT;

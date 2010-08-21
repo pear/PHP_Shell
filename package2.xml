@@ -49,31 +49,31 @@
     </file>
     <file baseinstalldir="" name="php-shell-cmd.php" role="php" />
    </dir>
-   <file baseinstalldir="" name="PHP/Shell.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Commands.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Options.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Autoload.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/AutoloadDebug.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/InlineHelp.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/VerbosePrint.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Colour.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/ExecutionTime.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Prototypes.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/LoadScript.php" role="php" />
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Echo.php" role="php" />
-   <file baseinstalldir="" name="examples/php-shell-cmd.php" role="doc" />
-   <file baseinstalldir="" name="tests/OptionsTest.php" role="test" />
-   <file baseinstalldir="" name="tests/ExtensionsTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/AutoloadDebugTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/AutoloadTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/ColourTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/EchoTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/ExecutionTimeTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/InlineHelpTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/LoadScriptTest.php" role="test" />
-   <file baseinstalldir="" name="tests/Extensions/VerbosePrintTest.php" role="test" />
-   <file baseinstalldir="" name="tests/ShellTest.php" role="test" />
+   <file baseinstalldir="" name="PHP/Shell.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Commands.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Options.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/Autoload.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/AutoloadDebug.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/InlineHelp.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/VerbosePrint.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/Colour.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/ExecutionTime.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/Prototypes.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/LoadScript.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="PHP/Shell/Extensions/Echo.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="examples/php-shell-cmd.php" role="doc"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/OptionsTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/ExtensionsTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/AutoloadDebugTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/AutoloadTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/ColourTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/EchoTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/ExecutionTimeTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/InlineHelpTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/LoadScriptTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/Extensions/VerbosePrintTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
+   <file baseinstalldir="" name="tests/ShellTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
    <file baseinstalldir="" name="README" role="doc" />
   </dir> 
  </contents>

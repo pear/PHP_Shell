@@ -16,7 +16,7 @@
 * @author    Jan Kneschke <jan@kneschke.de>
 * @copyright 2006 Jan Kneschke
 * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
-* @version   SVN: $id$
+* @version   SVN: $Id$
 * @link      http://pear.php.net/package/PHP_Shell
 */
 
@@ -35,7 +35,7 @@
 * @author    Jan Kneschke <jan@kneschke.de>
 * @copyright 2006 Jan Kneschke
 * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
-* @version   Release: $id$
+* @version   Release: @package_version@ 
 * @link      http://pear.php.net/package/PHP_Shell
 *  
 */
@@ -63,7 +63,7 @@ interface PHP_Shell_Extension
 * @author    Jan Kneschke <jan@kneschke.de>
 * @copyright 2006 Jan Kneschke
 * @license   MIT <http://www.opensource.org/licenses/mit-license.php>
-* @version   Release: $id$
+* @version   Release: @package_version@
 * @link      http://pear.php.net/package/PHP_Shell
 *
 */
