@@ -904,7 +904,7 @@ class ShellTest extends PHPUnit_Framework_TestCase
     public function testGetVersion()
     {
         $version = $this->shell->getVersion();
-        $this->assertEquals('0.3.1',$version);
+        $this->assertEquals('0.3.1', $version);
     }
 
     /**
@@ -916,14 +916,56 @@ class ShellTest extends PHPUnit_Framework_TestCase
     public function testHasReadline()
     {
         $have_readline = $this->shell->hasReadline();
-        $this->assertEquals(function_exists('readline'),$have_readline);
+        $this->assertEquals(function_exists('readline'), $have_readline);
     }
 
+    /**
+     * testReadLine 
+     * 
+     * @access public
+     * @return void
+     */
     public function testReadLine()
     {
         // ToDo: Try to create a better test for readline function
-        $all_completions = PHP_Shell_readlineComplete("",0);
-        $this->assertEquals(count($all_completions), 3281);
+        $all_completions = PHP_Shell_readlineComplete("", 0);
+        $this->assertTrue(in_array("Exception::", $all_completions));
+        $this->assertTrue(in_array("printf(", $all_completions));
     }
+
+    /**
+     * testCmdLicense 
+     * 
+     * @access public
+     * @return void
+     */
+    public function testCmdLicense()
+    {
+        $line = "Not important, not used";
+        $expected = <<< EOT
+'(c) 2006 Jan Kneschke <jan@kneschke.de>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.'
+EOT;
+        $license = $this->shell->cmdLicense($line);
+        $this->assertEquals($license, $expected);
+    }
+
 
 }

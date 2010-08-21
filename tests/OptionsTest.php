@@ -62,13 +62,12 @@ class OptionsTest extends PHPUnit_Framework_TestCase
     public function testRegisterOption()
     {
         $this->_shell_exts->options->registerOption(
-            'echo',
+            'registerOptionTest',
             new PHP_Shell_Extensions_Echo(),
             'optSetEcho'
         );
         $options = $this->_shell_exts->options->getOptions();
-        $this->assertEquals('echo', $options[0]);
-
+        $this->assertTrue(in_array('registerOptionTest', $options));
         
         try {
             $this->_shell_exts->options->registerOption(
@@ -135,12 +134,12 @@ class OptionsTest extends PHPUnit_Framework_TestCase
     public function testGetOptions()
     {
         $this->_shell_exts->options->registerOption(
-            'echo',
+            'getOptionsTest',
             new PHP_Shell_Extensions_Echo(),
             'optSetEcho'
         );
         $options = $this->_shell_exts->options->getOptions();
-        $this->assertEquals('echo', $options[0]);
+        $this->assertTrue(in_array('getOptionsTest', $options));
     }
 
     /**

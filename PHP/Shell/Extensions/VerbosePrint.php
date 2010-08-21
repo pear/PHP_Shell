@@ -79,10 +79,11 @@ class PHP_Shell_Extensions_VerbosePrint implements PHP_Shell_Extension
     public function optSetVerbose($key, $value)
     {
         switch($value) {
-        case "false":
+        case "true":
         case "on":
         case "1":
             $this->opt_verbose = true;
+            break;
         default:
             $this->opt_verbose = false;
             break;
