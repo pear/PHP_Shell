@@ -22,8 +22,15 @@ require_once 'PHPUnit/Framework/TestSuite.php';
 
 require_once 'ShellTest.php';
 require_once 'ExtensionsTest.php';
+require_once 'OptionsTest.php';
+require_once 'Extensions/AutoloadDebugTest.php';
+require_once 'Extensions/AutoloadTest.php';
+require_once 'Extensions/ColourTest.php';
 require_once 'Extensions/EchoTest.php';
+require_once 'Extensions/ExecutionTimeTest.php';
 require_once 'Extensions/InlineHelpTest.php';
+require_once 'Extensions/LoadScriptTest.php';
+require_once 'Extensions/VerbosePrintTest.php';
 
 /**
  * PHP_Shell_AllTests
@@ -62,8 +69,15 @@ class PHP_Shell_AllTests
         $suite = new PHPUnit_Framework_TestSuite( "Shell Tests");
         $suite->addTestSuite('ShellTest');
         $suite->addTestSuite('ExtensionsTest');
+        $suite->addTestSuite('OptionsTest');
+        $suite->addTestSuite('AutoloadDebugTest');
+        $suite->addTestSuite('AutoloadTest');
+        $suite->addTestSuite('ColourTest');
         $suite->addTestSuite('EchoTest');
+        $suite->addTestSuite('ExecutionTimeTest');
         $suite->addTestSuite('InlineHelpTest');
+        $suite->addTestSuite('LoadScriptTest');
+        $suite->addTestSuite('VerbosePrintTest');
         return $suite;
     }
 
