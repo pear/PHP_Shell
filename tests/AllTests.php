@@ -13,8 +13,8 @@
  * @link      http://pear.php.net/package/PHP_Shell
  */
 
-if (!defined('PHPUNIT_MAIN_METHOD')) {
-    define('PHPUNIT_MAIN_METHOD', 'PHP_Shell_AllTests::main');
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'PHP_Shell_AllTests::main');
 }
 
 require_once 'PHPUnit/TextUI/TestRunner.php';
@@ -83,7 +83,7 @@ class PHP_Shell_AllTests
 
 }
 
-if (PHPUNIT_MAIN_METHOD == 'PHP_Shell_AllTests::main') {
+if (PHPUnit_MAIN_METHOD == 'PHP_Shell_AllTests::main') {
     PHP_Shell_AllTests::main();
 }
 
