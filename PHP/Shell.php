@@ -717,11 +717,11 @@ class PHP_Shell
                         /* func() */
                         $funcname = $ts[$last - 1]['value'];
 
-                        if (is_object($func)) {
-                            if (get_class($func) != "Closure") {
+                        if (is_object($funcname)) {
+                            if (get_class($funcname) != "Closure") {
                                 throw new Exception("Object used as function.");
                             }
-                        } elseif (!function_exists($func)) {
+                        } elseif (!function_exists($funcname)) {
                             throw new Exception(
                                 sprintf(
                                     "Function %s() doesn't exist",
