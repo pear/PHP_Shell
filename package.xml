@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>PHP_Shell</name>
  <channel>pear.php.net</channel>
  <summary>a interactive PHP Shell</summary>
- <description>a interactive PHP Shell with tab-completion, inline help and handling of FATAL errors
- 
- </description>
+ <description>a interactive PHP Shell with tab-completion, inline help and handling of FATAL errors</description>
  <lead>
   <name>Jan Kneschke</name>
   <user>ostborn</user>
   <email>jan@kneschke.de</email>
   <active>yes</active>
  </lead>
- <date>2010-08-21</date>
- <time>14:30:00</time>
+ <date>2011-12-13</date>
+ <time>08:15:51</time>
  <version>
   <release>0.3.1</release>
   <api>0.3.0</api>
@@ -24,58 +22,49 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
  <notes>
-  QA release.
-  * added the LoadScript Extension to load and run scripts directly from the shell
-  * added the Echo Extension to disable the echo functions return
-  * fixed printing of executiong time
-  * fixed a lot of PHPCS errors
-  * improved the test coverage to 78.86%
-  * fixed bug #8554: Now classes with __call not throws exceptions when call a "undefined method".
-  * fixed bug #9556: Now curly open is a recognized token.
-  * fixed bug #14276: Now the php-shell.bat have the strings quoted
+QA release.
+* added the LoadScript Extension to load and run scripts directly from the shell
+* added the Echo Extension to disable the echo functions return
+* fixed printing of executiong time
+* fixed a lot of PHPCS errors
+* improved the test coverage to 78.86%
+* fixed bug #8554: Now classes with __call not throws exceptions when call a &quot;undefined method&quot;.
+* fixed bug #9556: Now curly open is a recognized token.
+* fixed bug #14276: Now the php-shell.bat have the strings quoted
  </notes>
  <contents>
-  <dir name="/">
-   <dir name="scripts">
-    <file baseinstalldir="" name="php-shell.sh" role="script" >
-     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
-     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
-     <tasks:unixeol />
-    </file>
-    <file baseinstalldir="" name="php-shell.bat" role="script" >
-     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
-     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
-     <tasks:windowseol />
-    </file>
-    <file baseinstalldir="" name="php-shell-cmd.php" role="php" />
-   </dir>
-   <file baseinstalldir="" name="PHP/Shell.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Commands.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Options.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Autoload.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/AutoloadDebug.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/InlineHelp.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/VerbosePrint.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Colour.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/ExecutionTime.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Prototypes.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/LoadScript.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="PHP/Shell/Extensions/Echo.php" role="php"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="examples/php-shell-cmd.php" role="doc"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/OptionsTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/ExtensionsTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/AutoloadDebugTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/AutoloadTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/ColourTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/EchoTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/ExecutionTimeTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/InlineHelpTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/LoadScriptTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/Extensions/VerbosePrintTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="tests/ShellTest.php" role="test"><replace from="@package_version@" to="version" type="package-info" /></file>
-   <file baseinstalldir="" name="README" role="doc" />
-  </dir> 
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="c740eb744aff5ad8f5ae217ade86e597" name="/examples/php-shell-cmd.php" role="php" />
+   <file baseinstalldir="/" md5sum="282220ed935a526bd3771327bb4b3149" name="/PHP/Shell.php" role="php" />
+   <file baseinstalldir="/" md5sum="480083edc110d6a254e7b578035df528" name="/PHP/Shell/Commands.php" role="php" />
+   <file baseinstalldir="/" md5sum="30b6946e2baed1a13fb86c8fb8c3c5e1" name="/PHP/Shell/Extensions.php" role="php" />
+   <file baseinstalldir="/" md5sum="b309f56d43570f3c0e3e420b6af2430f" name="/PHP/Shell/Options.php" role="php" />
+   <file baseinstalldir="/" md5sum="9bf43b2d48455dc671eac54b3a054a18" name="/PHP/Shell/Extensions/Autoload.php" role="php" />
+   <file baseinstalldir="/" md5sum="46890a75e2729e033abbb03e5c476e2a" name="/PHP/Shell/Extensions/AutoloadDebug.php" role="php" />
+   <file baseinstalldir="/" md5sum="927726819300b5feab52dbbfe0dd00ea" name="/PHP/Shell/Extensions/Colour.php" role="php" />
+   <file baseinstalldir="/" md5sum="b3c9b393b804e27ff0b68c2382e9e05b" name="/PHP/Shell/Extensions/Echo.php" role="php" />
+   <file baseinstalldir="/" md5sum="ff11fc7bca3ce80815e7cb4804c3c0db" name="/PHP/Shell/Extensions/ExecutionTime.php" role="php" />
+   <file baseinstalldir="/" md5sum="f0947edf5798e22258213cdd1a5d5fe0" name="/PHP/Shell/Extensions/InlineHelp.php" role="php" />
+   <file baseinstalldir="/" md5sum="a5cf81c74b954589cb871410c8010429" name="/PHP/Shell/Extensions/LoadScript.php" role="php" />
+   <file baseinstalldir="/" md5sum="078ddca98483e4112d5e91f0bee747d1" name="/PHP/Shell/Extensions/Prototypes.php" role="php" />
+   <file baseinstalldir="/" md5sum="72a8530257096bb707aef7531f8a9180" name="/PHP/Shell/Extensions/VerbosePrint.php" role="php" />
+   <file baseinstalldir="/" md5sum="61e3da7218af0679449546a07d7493f4" name="/scripts/php-shell-cmd.php" role="php" />
+   <file baseinstalldir="/" md5sum="f01a4ce26dd2d149bea6c4029ef96344" name="/scripts/php-shell.bat" role="data" />
+   <file baseinstalldir="/" md5sum="987f133ad5e116315f0cfc4bce7d85ed" name="/scripts/php-shell.sh" role="data" />
+   <file baseinstalldir="/" md5sum="1ce051b8f103fd30c718ebdc23079763" name="/tests/AllTests.php" role="php" />
+   <file baseinstalldir="/" md5sum="7b5ffbbc68b82e90fbfe92448885d278" name="/tests/ExtensionsTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="4b9dcd73b36a46452b1ecee25f3d74b3" name="/tests/OptionsTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="4fc99c1bd0dd04a97b8236e59f774648" name="/tests/ShellTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="83dd01b0feaf6e233e4f1aa38fdafa18" name="/tests/Extensions/AutoloadDebugTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="7cc6cbc2ab4cb8c6ec88b798858aa120" name="/tests/Extensions/AutoloadTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="ad141bbfb33d298e988713b5b05a218d" name="/tests/Extensions/ColourTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="4aa5fbc897476dbc5ceb0883665f6630" name="/tests/Extensions/EchoTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="618c263309f63bb83452df8259798e3c" name="/tests/Extensions/ExecutionTimeTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="e3f915d25b8463f8e0a022e74a7af157" name="/tests/Extensions/InlineHelpTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="8382aa40b53b51e1552aab59e9515786" name="/tests/Extensions/LoadScriptTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="5ec810c62b97b5b68fe7673c64bcf46b" name="/tests/Extensions/VerbosePrintTest.php" role="php" />
+   <file baseinstalldir="" md5sum="f87f3e1282417516769ce740551561d7" name="README" role="doc" />
+  </dir>
  </contents>
  <dependencies>
   <required>
@@ -92,80 +81,85 @@
    </package>
   </required>
  </dependencies>
- <phprelease>
-  <installconditions>
-   <os>
-    <name>windows</name>
-   </os>
-  </installconditions>
-  <filelist>
-   <install as="php-shell.bat" name="scripts/php-shell.bat" />
-   <install as="php-shell-cmd.php" name="scripts/php-shell-cmd.php" />
-   <ignore name="scripts/php-shell.sh" />
-  </filelist>
- </phprelease>
- <phprelease>
-  <filelist>
-   <install as="php-shell.sh" name="scripts/php-shell.sh" />
-   <install as="php-shell-cmd.php" name="scripts/php-shell-cmd.php" />
-   <ignore name="scripts/php-shell.bat" />
-  </filelist>
- </phprelease>
-
+ <phprelease />
  <changelog>
   <release>
    <version>
-    <release>0.3.0</release>
-    <api>0.3.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2006-05-29</date>
-   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>
-     * refactored the code
-     * fixed static::method()->method()
-     * fixed $obj[...]
-     * fixed :set autoload
-     * fixed $var in class ... { ... }
-   </notes>
-  </release>
-
-  <release>
-   <version>
-    <release>0.2.7</release>
+    <release>0.2.0</release>
     <api>0.2.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-25</date>
+   <date>2006-05-14</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
    <notes>
-     * added :set autoload and :set background
-	 * added ? $obj->method()
-	 * moved shell-wrapper to php-shell-cmd.php
-	 * removed die()
-	 * removed use of SHELL and SHELL_COLOUR
-	 * added ShellPrototypes
+- the detection of FATAL errors was rewritten and improved
+ - added UnitTests
    </notes>
   </release>
-
   <release>
    <version>
-    <release>0.2.6</release>
+    <release>0.2.1</release>
     <api>0.2.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-19</date>
+   <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>added colour schemes</notes>
+   <notes>
+migrated to the PEAR package.xml 2.0 spec and added a &apos;php-shell.sh&apos; script
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.2</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-15</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+   <notes>
+support variable functions like Class::$method() and $object-&gt;$method()
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.3</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-15</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+   <notes>
+added C_* constants to select the colour externally
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.4</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-15</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+   <notes>
+PEARified the package
+	   - converted to PHPDoc DocComments
+	   - added README as text
+   </notes>
   </release>
   <release>
    <version>
@@ -178,86 +172,86 @@
    </stability>
    <date>2006-05-15</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>split the command handling in input() into registerCommand() + seperate handlers</notes>
-  </release>
-
-  <release>
-   <version>
-    <release>0.2.4</release>
-    <api>0.2.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2006-05-15</date>
-   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>PEARified the package
-	   - converted to PHPDoc DocComments
-	   - added README as text
+   <notes>
+split the command handling in input() into registerCommand() + seperate handlers
    </notes>
   </release>
-
-
   <release>
    <version>
-    <release>0.2.3</release>
+    <release>0.2.6</release>
     <api>0.2.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-15</date>
+   <date>2006-05-19</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>added C_* constants to select the colour externally</notes>
+   <notes>
+added colour schemes
+   </notes>
   </release>
-
   <release>
    <version>
-    <release>0.2.2</release>
+    <release>0.2.7</release>
     <api>0.2.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-15</date>
+   <date>2006-05-25</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>support variable functions like Class::$method() and $object->$method()</notes>
+   <notes>
+* added :set autoload and :set background
+	 * added ? $obj-&gt;method()
+	 * moved shell-wrapper to php-shell-cmd.php
+	 * removed die()
+	 * removed use of SHELL and SHELL_COLOUR
+	 * added ShellPrototypes
+   </notes>
   </release>
-
-
   <release>
    <version>
-    <release>0.2.1</release>
-    <api>0.2.0</api>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-15</date>
+   <date>2006-05-29</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>migrated to the PEAR package.xml 2.0 spec and added a 'php-shell.sh' script</notes>
+   <notes>
+* refactored the code
+* fixed static::method()-&gt;method()
+* fixed $obj[...]
+* fixed :set autoload
+* fixed $var in class ... { ... }
+   </notes>
   </release>
-
   <release>
    <version>
-    <release>0.2.0</release>
-    <api>0.2.0</api>
+    <release>0.3.1</release>
+    <api>0.3.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-14</date>
+   <date>2011-12-13</date>
    <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
-   <notes>- the detection of FATAL errors was rewritten and improved
- - added UnitTests
-    
+   <notes>
+QA release.
+* added the LoadScript Extension to load and run scripts directly from the shell
+* added the Echo Extension to disable the echo functions return
+* fixed printing of executiong time
+* fixed a lot of PHPCS errors
+* improved the test coverage to 78.86%
+* fixed bug #8554: Now classes with __call not throws exceptions when call a &quot;undefined method&quot;.
+* fixed bug #9556: Now curly open is a recognized token.
+* fixed bug #14276: Now the php-shell.bat have the strings quoted
    </notes>
   </release>
  </changelog>
 </package>
-
