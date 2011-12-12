@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2011-12-13</date>
- <time>08:15:51</time>
+ <time>08:16:36</time>
  <version>
-  <release>0.3.1</release>
+  <release>0.3.2</release>
   <api>0.3.0</api>
  </version>
  <stability>
@@ -22,15 +22,8 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
  <notes>
-QA release.
-* added the LoadScript Extension to load and run scripts directly from the shell
-* added the Echo Extension to disable the echo functions return
-* fixed printing of executiong time
-* fixed a lot of PHPCS errors
-* improved the test coverage to 78.86%
-* fixed bug #8554: Now classes with __call not throws exceptions when call a &quot;undefined method&quot;.
-* fixed bug #9556: Now curly open is a recognized token.
-* fixed bug #14276: Now the php-shell.bat have the strings quoted
+QA Release
+Bug #18994 Closures not properly supported
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -251,6 +244,22 @@ QA release.
 * fixed bug #8554: Now classes with __call not throws exceptions when call a &quot;undefined method&quot;.
 * fixed bug #9556: Now curly open is a recognized token.
 * fixed bug #14276: Now the php-shell.bat have the strings quoted
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.2</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2011-12-13</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.php">MIT</license>
+   <notes>
+QA Release
+Bug #18994 Closures not properly supported
    </notes>
   </release>
  </changelog>
