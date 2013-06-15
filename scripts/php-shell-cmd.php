@@ -62,6 +62,9 @@ require_once "PHP/Shell/Extensions/Echo.php";
 */
 function PHP_Shell_defaultErrorHandler($errno, $errstr, $errfile, $errline, $errctx)
 {
+    if (!error_reporting()) // ignore surpressed errors
+        return;
+        
     // ... what is this errno again ?
     if ($errno == 2048) {
         return;
