@@ -1,0 +1,32 @@
+{
+    "authors": [
+        {
+            "email": "jan@kneschke.de",
+            "name": "Jan Kneschke",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "PHP": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/PHP_Shell",
+    "include-path": [
+        "./"
+    ],
+    "license": "MIT",
+    "name": "pear/php_shell",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=PHP_Shell",
+        "source": "https://github.com/pear/PHP_Shell"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*",
+        "pear/pear": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
