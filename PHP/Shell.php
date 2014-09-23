@@ -312,6 +312,7 @@ class PHP_Shell
                 case T_INT_CAST:
                 case T_STRING_CAST:
                 case T_CURLY_OPEN:
+                case T_NS_SEPARATOR:
 
                     /* just go on */
                     break;
