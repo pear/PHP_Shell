@@ -15,7 +15,6 @@
  */
 
 
-require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'PHP/Shell.php';
 require_once "PHP/Shell/Extensions/LoadScript.php";
 

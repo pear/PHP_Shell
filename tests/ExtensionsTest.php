@@ -14,8 +14,6 @@
  * @link      http://pear.php.net/package/PHP_Shell
  */
 
-
-require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'PHP/Shell.php';
 require_once "PHP/Shell/Extensions/Autoload.php";
 require_once "PHP/Shell/Extensions/AutoloadDebug.php";
