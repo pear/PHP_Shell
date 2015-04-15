@@ -26,37 +26,51 @@ QA Release
 Bug #18994 Closures not properly supported
  </notes>
  <contents>
-  <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="c740eb744aff5ad8f5ae217ade86e597" name="/examples/php-shell-cmd.php" role="php" />
-   <file baseinstalldir="/" md5sum="282220ed935a526bd3771327bb4b3149" name="/PHP/Shell.php" role="php" />
-   <file baseinstalldir="/" md5sum="480083edc110d6a254e7b578035df528" name="/PHP/Shell/Commands.php" role="php" />
-   <file baseinstalldir="/" md5sum="30b6946e2baed1a13fb86c8fb8c3c5e1" name="/PHP/Shell/Extensions.php" role="php" />
-   <file baseinstalldir="/" md5sum="b309f56d43570f3c0e3e420b6af2430f" name="/PHP/Shell/Options.php" role="php" />
-   <file baseinstalldir="/" md5sum="9bf43b2d48455dc671eac54b3a054a18" name="/PHP/Shell/Extensions/Autoload.php" role="php" />
-   <file baseinstalldir="/" md5sum="46890a75e2729e033abbb03e5c476e2a" name="/PHP/Shell/Extensions/AutoloadDebug.php" role="php" />
-   <file baseinstalldir="/" md5sum="927726819300b5feab52dbbfe0dd00ea" name="/PHP/Shell/Extensions/Colour.php" role="php" />
-   <file baseinstalldir="/" md5sum="b3c9b393b804e27ff0b68c2382e9e05b" name="/PHP/Shell/Extensions/Echo.php" role="php" />
-   <file baseinstalldir="/" md5sum="ff11fc7bca3ce80815e7cb4804c3c0db" name="/PHP/Shell/Extensions/ExecutionTime.php" role="php" />
-   <file baseinstalldir="/" md5sum="f0947edf5798e22258213cdd1a5d5fe0" name="/PHP/Shell/Extensions/InlineHelp.php" role="php" />
-   <file baseinstalldir="/" md5sum="a5cf81c74b954589cb871410c8010429" name="/PHP/Shell/Extensions/LoadScript.php" role="php" />
-   <file baseinstalldir="/" md5sum="078ddca98483e4112d5e91f0bee747d1" name="/PHP/Shell/Extensions/Prototypes.php" role="php" />
-   <file baseinstalldir="/" md5sum="72a8530257096bb707aef7531f8a9180" name="/PHP/Shell/Extensions/VerbosePrint.php" role="php" />
-   <file baseinstalldir="/" md5sum="61e3da7218af0679449546a07d7493f4" name="/scripts/php-shell-cmd.php" role="php" />
-   <file baseinstalldir="/" md5sum="f01a4ce26dd2d149bea6c4029ef96344" name="/scripts/php-shell.bat" role="data" />
-   <file baseinstalldir="/" md5sum="987f133ad5e116315f0cfc4bce7d85ed" name="/scripts/php-shell.sh" role="data" />
-   <file baseinstalldir="/" md5sum="1ce051b8f103fd30c718ebdc23079763" name="/tests/AllTests.php" role="php" />
-   <file baseinstalldir="/" md5sum="7b5ffbbc68b82e90fbfe92448885d278" name="/tests/ExtensionsTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="4b9dcd73b36a46452b1ecee25f3d74b3" name="/tests/OptionsTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="4fc99c1bd0dd04a97b8236e59f774648" name="/tests/ShellTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="83dd01b0feaf6e233e4f1aa38fdafa18" name="/tests/Extensions/AutoloadDebugTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="7cc6cbc2ab4cb8c6ec88b798858aa120" name="/tests/Extensions/AutoloadTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="ad141bbfb33d298e988713b5b05a218d" name="/tests/Extensions/ColourTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="4aa5fbc897476dbc5ceb0883665f6630" name="/tests/Extensions/EchoTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="618c263309f63bb83452df8259798e3c" name="/tests/Extensions/ExecutionTimeTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="e3f915d25b8463f8e0a022e74a7af157" name="/tests/Extensions/InlineHelpTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="8382aa40b53b51e1552aab59e9515786" name="/tests/Extensions/LoadScriptTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="5ec810c62b97b5b68fe7673c64bcf46b" name="/tests/Extensions/VerbosePrintTest.php" role="php" />
-   <file baseinstalldir="" md5sum="f87f3e1282417516769ce740551561d7" name="README" role="doc" />
+  <dir name="/" baseinstalldir="/">
+   <dir name="PHP">
+    <file name="Shell.php" role="php" />
+    <file name="Shell/Commands.php" role="php" />
+    <file name="Shell/Extensions.php" role="php" />
+    <file name="Shell/Options.php" role="php" />
+    <file name="Shell/Extensions/Autoload.php" role="php" />
+    <file name="Shell/Extensions/AutoloadDebug.php" role="php" />
+    <file name="Shell/Extensions/Colour.php" role="php" />
+    <file name="Shell/Extensions/Echo.php" role="php" />
+    <file name="Shell/Extensions/ExecutionTime.php" role="php" />
+    <file name="Shell/Extensions/InlineHelp.php" role="php" />
+    <file name="Shell/Extensions/LoadScript.php" role="php" />
+    <file name="Shell/Extensions/Prototypes.php" role="php" />
+    <file name="Shell/Extensions/VerbosePrint.php" role="php" />
+   </dir>
+   <dir name="scripts">
+    <file name="php-shell-cmd.php" role="php" />
+    <file name="php-shell.bat" role="script">
+     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+     <tasks:windowseol />
+    </file>
+    <file name="php-shell.sh" role="script">
+     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+     <tasks:unixeol />
+    </file>
+   </dir>
+   <dir name="tests">
+    <file name="AllTests.php" role="test" />
+    <file name="ExtensionsTest.php" role="test" />
+    <file name="OptionsTest.php" role="test" />
+    <file name="ShellTest.php" role="test" />
+    <file name="Extensions/AutoloadDebugTest.php" role="test" />
+    <file name="Extensions/AutoloadTest.php" role="test" />
+    <file name="Extensions/ColourTest.php" role="test" />
+    <file name="Extensions/EchoTest.php" role="test" />
+    <file name="Extensions/ExecutionTimeTest.php" role="test" />
+    <file name="Extensions/InlineHelpTest.php" role="test" />
+    <file name="Extensions/LoadScriptTest.php" role="test" />
+    <file name="Extensions/VerbosePrintTest.php" role="test" />
+   </dir>
+   <file name="examples/php-shell-cmd.php" role="doc" />
+   <file name="README" role="doc" />
   </dir>
  </contents>
  <dependencies>
@@ -74,7 +88,25 @@ Bug #18994 Closures not properly supported
    </package>
   </required>
  </dependencies>
- <phprelease />
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="php-shell.bat" name="scripts/php-shell.bat" />
+   <install as="php-shell-cmd.php" name="scripts/php-shell-cmd.php" />
+   <ignore name="scripts/php-shell.sh" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="php-shell.sh" name="scripts/php-shell.sh" />
+   <install as="php-shell-cmd.php" name="scripts/php-shell-cmd.php" />
+   <ignore name="scripts/php-shell.bat" />
+  </filelist>
+ </phprelease>
  <changelog>
   <release>
    <version>
